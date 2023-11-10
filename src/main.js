@@ -1,19 +1,32 @@
+// blender scene
+// test code 
 import * as THREE from 'three';
 
+import { GLTFLoader } from '/three/examples/jsm/loaders/GLTFLoader.js';
+// scene & camera
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-
+// renderer
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
+// scene loader
+const loader = new THREE.GLTFLoader();
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-
+loader.load('./asset/cube.glb', (gltf) => {
+    const model = gltf.scene;
+    model.position.set(0, 0, 0); // Positionieren Sie das Modell im Zentrum der Szene
+    scene.add(model);
+});
 camera.position.z = 5;
 
-module.exports = {
-    "js": "text/javascript"
-   };
+
+function animate() {
+    requestAnimationFrame(animate);
+    // Hier kannst du Animationen oder Kamerabewegungen hinzufügen
+    renderer.render(scene, camera);
+  }
+  
+  animate();
+
+
