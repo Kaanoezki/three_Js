@@ -15,7 +15,7 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
    <script src="../main.js"></script>
    <script>
-       let scene, camera, renderer, geometry, material, cube;
+       let scene, camera, renderer, geometry, material, cube, texture, textureLoader,edges,liness;
 
        function init() {
            scene = new THREE.Scene();
@@ -27,14 +27,31 @@
        }
 
 	   function boxMaker(){
-		geometry = new THREE.BoxGeometry(1,1,1);
-		material = new THREE.MeshBasicMaterial({color : 0x00ff00});
-		cube = new THREE.Mesh(geometry, material);
-		scene.add(cube);
-	   }
+		   geometry = new THREE.BoxGeometry(1,1,1);
+		   textureLoader = new THREE.TextureLoader();
+		   texture = textureLoader.load('../assets/bilder/image1')
+		//    material = new THREE.MeshBasicMaterial({map:texture});
+			material = new THREE.MeshBasicMaterial({ color: 0x3498db }); 
+		   cube = new THREE.Mesh(geometry, material);
+		   scene.add(cube);
+		   outliner();
+	    }
+
+		function outliner(){
+			edges = new THREE.EdgesGeometry(geometry);
+			lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000 }));
+			cube.add(lines);
+		}
+	 
 
        function animate() {
            requestAnimationFrame(animate);
+		   // anim here
+			cube.rotation.y += 0.01;
+			cube.rotation.x += 0.005;
+			cube.rotation.z += 0.005;
+
+
            renderer.render(scene, camera);
        }
 
