@@ -17,6 +17,11 @@
    <script>
        let scene, camera, renderer, geometry, material, cube, texture, textureLoader,edges,liness;
 
+		function colorpicker(){
+			let redColor = chalk.red();
+		}
+
+
        function init() {
            scene = new THREE.Scene();
            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -34,12 +39,10 @@
 			material = new THREE.MeshBasicMaterial({ color: 0x3498db }); 
 		   cube = new THREE.Mesh(geometry, material);
 		   scene.add(cube);
-		   outliner();
-	    }
-
-		function outliner(){
+		//white outliner
 			edges = new THREE.EdgesGeometry(geometry);
-			lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000 }));
+			lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff, linewidth: 15 }));
+			lines.scale.set ( 1.02,1.02,1.2);
 			cube.add(lines);
 		}
 	 
