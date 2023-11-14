@@ -37,7 +37,7 @@
 		   textureLoader = new THREE.TextureLoader();
 		   texture = textureLoader.load('../assets/bilder/image1')
 		//    material = new THREE.MeshBasicMaterial({map:texture});
-			material = new THREE.MeshBasicMaterial({ color: 0x3498db }); 
+			material = new THREE.MeshLambertMaterial({ color: 0x3498db }); 
 		   cube = new THREE.Mesh(geometry, material);
 		   scene.add(cube);
 		//white outliner
@@ -56,11 +56,14 @@
 
            renderer.render(scene, camera);
        }
-       function light(){
+   
+       function light() {
            lightHemisphere = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
-           helper = new THREE.HemisphereLightHelper(lightHemisphere, 5);
-           scene.add(helper);
-       }
+           helper = new THREE.HemisphereLightHelper(lightHemisphere, 1);
+           lightHemisphere.position.set(0, 0, 10);
+           scene.add(lightHemisphere); // Add the light to the scene
+           scene.add(helper); // Add the helper to the scene
+       }    
 
 
 
@@ -70,6 +73,7 @@
        animate();
 
        // light function kein licht auf der cube, wieso?
+       // und warum sehe ich den hemispheren ray?
 	   
    </script>
 </body>
