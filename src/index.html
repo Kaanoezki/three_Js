@@ -14,14 +14,16 @@
 <body>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
    <script src="../main.js"></script>
+    <!--light source implementation-->
+    
+  
    <script>
-       let scene, camera, renderer, geometry, material, cube, texture, textureLoader,edges,liness;
+       let scene, camera, renderer, geometry, material, cube, texture, textureLoader,edges,liness,
+            lightHemisphere, helper;
 
 		function colorpicker(){
 			let redColor = chalk.red();
 		}
-
-
        function init() {
            scene = new THREE.Scene();
            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -30,7 +32,6 @@
            renderer.setSize(window.innerWidth, window.innerHeight);
            document.body.appendChild(renderer.domElement);
        }
-
 	   function boxMaker(){
 		   geometry = new THREE.BoxGeometry(1,1,1);
 		   textureLoader = new THREE.TextureLoader();
@@ -42,11 +43,9 @@
 		//white outliner
 			edges = new THREE.EdgesGeometry(geometry);
 			lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff, linewidth: 15 }));
-			lines.scale.set ( 1.02,1.02,1.2);
+			lines.scale.set ( 1.01,1.01,1.01);
 			cube.add(lines);
 		}
-	 
-
        function animate() {
            requestAnimationFrame(animate);
 		   // anim here
@@ -57,12 +56,22 @@
 
            renderer.render(scene, camera);
        }
+       function light(){
+           lightHemisphere = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
+           helper = new THREE.HemisphereLightHelper(lightHemisphere, 5);
+           scene.add(helper);
+       }
+
+
 
        init();
 	   boxMaker();
+       light();
        animate();
+
+       // light function kein licht auf der cube, wieso?
 	   
    </script>
 </body>
 
-</html>
+</html> 
