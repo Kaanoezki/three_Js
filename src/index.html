@@ -58,13 +58,13 @@
         }
 
         function createCube() {
-            let cube1 = new Cube(0, 0, 0, 0xc0c0c0, { x: 0.5, y: 0.2, z: 0.5 });
+            let cube1 = new Cube(1, 0, 0, 0xc0c0c0, { x: 0.5, y: 0.2, z: 0.5 });
             cube1.setColor(0xc0c0c0);
             cubes.push(cube1);
-            let cube2 = new Cube(1, 1, 1, 0x3498db, { x: 0.01, y: 0.05, z: 0.01 });
+            let cube2 = new Cube(1, 1.5, 0, 0x3498db, { x: 0.01, y: 0.05, z: 0.01 });
             cube2.setColor(0x0000ff);
             cubes.push(cube2);
-            let cube3 = new Cube(-1, -1, -1, 0x3498db, { x: 0.01, y: 0.05, z: 0.4 });
+            let cube3 = new Cube(1, -1.5, 0, 0x3498db, { x: 0.01, y: 0.05, z: 0.4 });
             cube3.setColor(0x800000);
             cubes.push(cube3);
         }
