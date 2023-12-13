@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!--
+ich nutze blender 3d, vs code, node js , three js, ect. kann ich eine ganze scene von blender nach js auf meine website laden?
+?-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="C:\Users\Teilnehmer\Documents\Frontend\Bewerbungsseite\src/">
     <title>Three.js Template</title>
     <style>
         body {
             margin: 0;
         }
-
         canvas {
             display: block;
         }
@@ -17,14 +19,35 @@
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- gui steuerung -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
-
+   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js" integrity="sha512-n8IpKWzDnBOcBhRlHirMZOUvEq2bLRMuJGjuVqbzUJwtTsgwOgK5aS0c1JA647XWYfqvXve8k3PtZdzpipFjgg==" crossorigin="anonymous"></script>
+   <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+ 
+   <script const gltfLoader = new THREE.GLTFLoader();></script>
+   
     <script>
+        const gltfLoader = new THREE.GLTFLoader();
         let scene, camera, renderer, geometry, material, cube, textureLoader, edges, lines;
         // array 
         let cubes = [];
+        const loader = new THREE.GLTFLoader();
+
+
+       //datgui controller
+       var gui = new dat.GUI();
+        var gravityFolders = [];
+
+        function loadObj(){
+            console.log("Loading GLTF model...");
+            loader.load('C:/Users/Teilnehmer/Documents/Frontend/three_Js/assets/gltf.glb', (gltf) => {
+            console.log("GLTF model loaded successfully:", gltf);
+            // Position and add the loaded model to the scene
+            gltf.scene.position.set(0, 0, 0);
+                gltf.scene.scale.set(5, 5, 5);
+                scene.add(gltf.scene);
+        });
+        }
 
         class Cube {
             constructor(x, y, z, color, rotationSpeed) {
@@ -68,6 +91,12 @@
             cube3.setColor(0x800000);
             cubes.push(cube3);
         }
+        cubes.forEach((cube, index) => {
+                var folder = gui.addFolder(`Cube ${index + 1}`);
+                folder.add(cube, 'gravity', 0, 10);
+                gravityFolders.push(folder);
+            });
+
 
         function init() {
             scene = new THREE.Scene();
@@ -91,29 +120,20 @@
 
         function light() {
             lightHemisphere = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
-            helper = new THREE.HemisphereLightHelper(lightHemisphere, 1);
             lightHemisphere.position.set(0, 0, 10);
-            scene.add(lightHemisphere); // Add the light to the scene
-            scene.add(helper); // Add the helper to the scene
+            scene.add(lightHemisphere);
+            helper = new THREE.HemisphereLightHelper(lightHemisphere, 1);
+            scene.add(helper); 
         }
-       
-        //gui controller ab hier
-        const gui = new dat.GUI();
-        const rotationSpeedController = gui.addFolder('Rotation Speed');
-
-        // Füge Drag-Controller für die Rotationsgeschwindigkeit für jeden Cube hinzu
-        cubes.forEach((cube, index) => {
-            rotationSpeedController.add(cube.rotationSpeed, 'y').min(0.01).max(0.2).name(`Cube ${index + 1}`);
-        });
-
-        // Schalte die GUI-Ansicht ein
-        rotationSpeedController.open();
-     // controller bis hier 
-
         init();
         createCube();
         light();
         animate();
+        loadObj();
+
+
+
+
     </script>
 </body>
 
