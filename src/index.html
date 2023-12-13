@@ -6,7 +6,7 @@ ich nutze blender 3d, vs code, node js , three js, ect. kann ich eine ganze scen
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="C:\Users\Teilnehmer\Documents\Frontend\Bewerbungsseite\src/">
+    <base href="C:\Users\Teilnehmer\Documents\Frontend\Bewerbungsseite\src\">
     <title>Three.js Template</title>
     <style>
         body {
@@ -19,15 +19,12 @@ ich nutze blender 3d, vs code, node js , three js, ect. kann ich eine ganze scen
 </head>
 
 <body>
-   
    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js" integrity="sha512-n8IpKWzDnBOcBhRlHirMZOUvEq2bLRMuJGjuVqbzUJwtTsgwOgK5aS0c1JA647XWYfqvXve8k3PtZdzpipFjgg==" crossorigin="anonymous"></script>
    <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
- 
+
    <script const gltfLoader = new THREE.GLTFLoader();></script>
-   
     <script>
-        const gltfLoader = new THREE.GLTFLoader();
         let scene, camera, renderer, geometry, material, cube, textureLoader, edges, lines;
         // array 
         let cubes = [];
@@ -39,14 +36,15 @@ ich nutze blender 3d, vs code, node js , three js, ect. kann ich eine ganze scen
         var gravityFolders = [];
 
         function loadObj(){
-            console.log("Loading GLTF model...");
-            loader.load('C:/Users/Teilnehmer/Documents/Frontend/three_Js/assets/gltf.glb', (gltf) => {
+            // loader.load('C:/Users/Teilnehmer/Documents/Frontend/three_Js/assets/gltf/suzann.gltf', (gltf) => {
+            // loader.load('./assets/gltf/teaPot.glb', (gltf) => {
+            loader.load('./assets/gltf/suzann.gltf', (gltf) => {
             console.log("GLTF model loaded successfully:", gltf);
             // Position and add the loaded model to the scene
             gltf.scene.position.set(0, 0, 0);
-                gltf.scene.scale.set(5, 5, 5);
-                scene.add(gltf.scene);
-        });
+            gltf.scene.scale.set(5, 5, 5);
+            scene.add(gltf.scene);
+});
         }
 
         class Cube {
