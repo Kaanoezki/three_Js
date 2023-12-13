@@ -6,7 +6,7 @@ ich nutze blender 3d, vs code, node js , three js, ect. kann ich eine ganze scen
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="C:\Users\Teilnehmer\Documents\Frontend\Bewerbungsseite\src\">
+
     <title>Three.js Template</title>
     <style>
         body {
@@ -19,6 +19,7 @@ ich nutze blender 3d, vs code, node js , three js, ect. kann ich eine ganze scen
 </head>
 
 <body>
+    
    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js" integrity="sha512-n8IpKWzDnBOcBhRlHirMZOUvEq2bLRMuJGjuVqbzUJwtTsgwOgK5aS0c1JA647XWYfqvXve8k3PtZdzpipFjgg==" crossorigin="anonymous"></script>
    <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
@@ -36,14 +37,12 @@ ich nutze blender 3d, vs code, node js , three js, ect. kann ich eine ganze scen
         var gravityFolders = [];
 
         function loadObj(){
-            // loader.load('C:/Users/Teilnehmer/Documents/Frontend/three_Js/assets/gltf/suzann.gltf', (gltf) => {
-            // loader.load('./assets/gltf/teaPot.glb', (gltf) => {
-            loader.load('./assets/gltf/suzann.gltf', (gltf) => {
-            console.log("GLTF model loaded successfully:", gltf);
-            // Position and add the loaded model to the scene
-            gltf.scene.position.set(0, 0, 0);
-            gltf.scene.scale.set(5, 5, 5);
-            scene.add(gltf.scene);
+            loader.load('./suzann.gltf', (gltf) => {
+                console.log("GLTF model loaded successfully:", gltf);
+                // Position and add the loaded model to the scene
+                gltf.scene.position.set(0, 0, 0);
+                gltf.scene.scale.set(1,1,1);
+                scene.add(gltf.scene);
 });
         }
 
@@ -117,11 +116,13 @@ ich nutze blender 3d, vs code, node js , three js, ect. kann ich eine ganze scen
         }
 
         function light() {
-            lightHemisphere = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
-            lightHemisphere.position.set(0, 0, 10);
-            scene.add(lightHemisphere);
-            helper = new THREE.HemisphereLightHelper(lightHemisphere, 1);
-            scene.add(helper); 
+            var ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+            var directionalLight = new THREE.DirectionalLight(0xffffff);
+            directionalLight.position.set(1, 1, 1).normalize();
+            scene.add(directionalLight);
+
+            renderer.render(scene, camera);
         }
         init();
         createCube();
