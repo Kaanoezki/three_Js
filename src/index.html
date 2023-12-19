@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--css-->
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" type="text/css" href="navbar.css">
-    <title>Three.js Template</title>
+    <title>Bewerbung</title>
     <!--fonts-->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
@@ -14,73 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
-    <!--bloom effect-->
-    <script src="bloom.js"></script>
-    <style>
-        /*color harmony: #fff562, #62fff5, #f562ff */
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
 
-        canvas {
-            display: block;
-        }
-
-        .layer {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        #layer1 {
-            background-color: #fff562;
-            z-index: -30;
-          
-        }
-
-        #layer2 {
-            background-color:white;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            z-index: -2;
-            height: 50vh; 
-            width: 50vw; 
-            transform:translate(50%,50%);
-            transition: height 0.5s, width 0.5s;
-        }
-
-        /*@media*/
-        /*smaller dives*/
-
-        @media (max-width: 600px) {
-            #layer1 {
-                background-color: red; 
-            }
-
-            #layer2 {
-                height: 50vh;
-                width: 50vw;
-            }
-        }
-
-        @media (min-width: 601px) {
-            #layer1 {
-                background-color: #ffcc00;
-            }
-
-            #layer2 {
-                height: 50vh;
-                width: 50vw;
-            }
-        }
-
-    </style>
 </head>
 <body>
     <div id="layer1" class="layer">Inhalt für Layer 1</div>
@@ -128,34 +63,76 @@
             scene.add(directionalLight);
         }
 
-        function loadSuzann() {
+        //material loader
+        function loadMaterial(texturePath) {
+            const textureLoader = new THREE.TextureLoader();
+            const texture = textureLoader.load(texturePath);
+            const material = new THREE.MeshStandardMaterial({ map: texture });
+            return material;
+        }
+        ////////load objs
+
+        function loadBlueprint() {
             const loader = new THREE.GLTFLoader();
-            loader.load('./suzann.gltf', (gltf) => {
-                const setPosition = new THREE.Vector3(-2, 0, 0);
-                const setScale = new THREE.Vector3(1, 1, 1);
-                const suzannObj = new objectSpwn(gltf, setPosition, setScale);
+            loader.load('../assets/blueprint.glb', (gltf) => {
+            const setPosition = new THREE.Vector3(0, 0, 0);
+            const setScale = new THREE.Vector3(1, 1, 1);
+
+        // Apply the material to all mesh objects in the GLTF model
+            gltf.scene.traverse((child) => {
+                if (child.isMesh) {
+                    child.material = loadMaterial('../assets/materials/blueprint_diffuse.png');
+                }
+            });
+
+        const blueprint = new objectSpwn(gltf.scene, setPosition, setScale);
             });
         }
 
-        function loadTeapot() {
-            const loader = new THREE.GLTFLoader();
-            loader.load('./teaPot.glb', (gltf) => {
-                const setPosition = new THREE.Vector3(3, 0, 0);
-                const setScale = new THREE.Vector3(1, 1, 1);
-                const teaPotObj = new objectSpwn(gltf, setPosition, setScale);
-            });
-        }
+        function loadSuzann() {
+    const loader = new THREE.GLTFLoader();
+    loader.load('../assets/suzann.gltf', (gltf) => {
+        const setPosition = new THREE.Vector3(0, 0, 0);
+        const setScale = new THREE.Vector3(1, 1, 1);
+
+        gltf.scene.traverse((child) => {
+            if (child.isMesh) {
+                child.material = loadMaterial('../assets/materials/blueprint_diffuse.png');
+            }
+        });
+
+        const suzannObj = new objectSpwn(gltf.scene, setPosition, setScale);
+    });
+}
+
+
+function loadTeapot() {
+    const loader = new THREE.GLTFLoader();
+    loader.load('../assets/teapot1.glb', (gltf) => { //glb muss in gltf umgewandelt werden
+        const setPosition = new THREE.Vector3(0, 0, 0);
+        const setScale = new THREE.Vector3(1, 1, 1);
+
+        gltf.scene.traverse((child) => {
+            if (child.isMesh) {
+                child.material = loadMaterial('../assets/materials/teapot_diffuse.png');
+            }
+        });
+
+        const teapotObj = new objectSpwn(gltf.scene, setPosition, setScale);
+    });
+}
+
 
         class objectSpwn {
             constructor(initObj, setPosition, setScale) {
                 this.initObj = initObj;
                 this.setPosition = setPosition;
                 this.setScale = setScale;
-                this.initObj.scene.position.set(this.setPosition.x, this.setPosition.y, this.setPosition.z);
-                this.initObj.scene.scale.set(this.setScale.x, this.setScale.y, this.setScale.z);
-                scene.add(initObj.scene);
-            }
-        }
+                this.initObj.position.set(this.setPosition.x, this.setPosition.y, this.setPosition.z);
+                this.initObj.scale.set(this.setScale.x, this.setScale.y, this.setScale.z);
+                scene.add(this.initObj);
+                    }
+                }
 
         function animate() {
             requestAnimationFrame(animate);
@@ -184,6 +161,7 @@
 
             // resizer funktion (enter new obj here too!)
             light();
+            loadBlueprint();
             loadSuzann();
             loadTeapot();
             console.log('Objects initialized');
