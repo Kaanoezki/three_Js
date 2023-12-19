@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--meta data-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="navbar.css">
     <title>Three.js Template</title>
+
+     <!--fonts-->
+     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
+
     <style>
+        /*color harmony: #fff562, #62fff5, #f562ff */
         body {
             margin: 0;
             overflow: hidden;
@@ -22,13 +34,13 @@
         }
 
         #layer1 {
-            background-color: #ffcc00;
+            background-color: #fff562;
             z-index: -30;
           
         }
 
         #layer2 {
-        background: content-box radial-gradient(skyblue, #ffcc00);
+        background-color:white;
         background-position: center;
         display: flex;
         flex-direction: column;
@@ -42,11 +54,10 @@
         transform:translate(50%,50%);
         transition: height 0.5s, width 0.5s;
         }
+        
         /*@media*/
         /*smaller dives*/
-        @media (max-width: 768px) {
-        body {
-        }
+        
             @media (max-width: 600px) {
                 #layer1 {
                     background-color: red; 
@@ -64,11 +75,11 @@
                 }
 
                 #layer2 {
-                    height: 25vh;
-                    width: 25vw;
+                    height: 50vh;
+                    width: 50vw;
                 }
             }
-    }
+    
 
     </style>
 </head>
@@ -76,13 +87,24 @@
     <div id="layer1" class="layer">Inhalt für Layer 1</div>
     <div id="layer2" class="layer">Inhalt für Layer 2</div>
     <div id="threejs-container"></div>
+    <nav >
+        <ul class="navbar container ">
+            <li class="a">Start</li>
+            <li class="b">Bewerbung</li>
+            <li class="c">lebenslauf</li>
+            <li class="d">letztes Projekt</li>
+            <a class="v blink">Navigation</a>
+            </ul>
+    </nav>
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
     <script>
-        let scene, camera, renderer, cubes;
 
+        let scene, camera, renderer, cubes;
         function init() {
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -147,43 +169,43 @@
             requestAnimationFrame(animate);
             renderer.render(scene, camera);
         }
-function windowResize() {
-    let currentWidth = window.innerWidth;
-    let currentHeight = window.innerHeight;
-    const threshold = 10;
+        function windowResize() {
+            let currentWidth = window.innerWidth;
+            let currentHeight = window.innerHeight;
+            const threshold = 10;
 
-    if (Math.abs(currentWidth - window.innerWidth) > threshold) {
-        updateObjPosition();
-    }
-}
+            if (Math.abs(currentWidth - window.innerWidth) > threshold) {
+                updateObjPosition();
+            }
+        }
 
-window.addEventListener('resize', windowResize);
+        window.addEventListener('resize', windowResize);
 
-function initObjects() {
-    // Neu positionieren der Layer2-Div
-    const layer2 = document.getElementById('layer2');
-    layer2.style.height = window.innerHeight / 2 + 'px';
-    layer2.style.width = window.innerWidth / 2 + 'px';
-    layer2.style.transform = `translate(${window.innerWidth / 4}px, ${window.innerHeight / 4}px)`;
+        function initObjects() {
+        // Neu positionieren der Layer2-Div
+        const layer2 = document.getElementById('layer2');
+        layer2.style.height = window.innerHeight / 2 + 'px';
+        layer2.style.width = window.innerWidth / 2 + 'px';
+        layer2.style.transform = `translate(${window.innerWidth / 4}px, ${window.innerHeight / 4}px)`;
 
-    // resizer funktion
-    createCube();
-    light();
-    loadSuzann();
-    loadTeapot();
-    // ...
+        // resizer funktion
+        createCube();
+        light();
+        loadSuzann();
+        loadTeapot();
+        // ...
 
-    console.log('Objects initialized');
-    objectsInitialized = true;
-}
+        console.log('Objects initialized');
+        objectsInitialized = true;
+        }
 
-windowResize();
-init();
-createCube();
-light();
-loadSuzann();
-loadTeapot();
-animate();
+        windowResize();
+        init();
+        createCube();
+        light();
+        loadSuzann();
+        loadTeapot();
+        animate();
 
     </script>
 </body>
