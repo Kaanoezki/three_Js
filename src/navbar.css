@@ -14,8 +14,8 @@
 
     transform: translateX(-70%); 
     transition: transform 0.5s ease-in-out; 
-   }
-   .container {  display: grid;
+   }.container { 
+    display: grid;
     width: 15vw;
     height: 15vh;
     transform: translateX(-75%);

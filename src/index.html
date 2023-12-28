@@ -7,6 +7,7 @@
     <!--css-->
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" type="text/css" href="navbar.css">
+    
     <title>Bewerbung</title>
     <!--fonts-->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
@@ -15,15 +16,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
-
 </head>
-<body >
+<body>
     <div id="layer1" class="layer">Inhalt für Layer 1</div>
     <div id="layer2" class="layer">Inhalt für Layer 2</div>
-    <div id="threejs-container" class="suzann-container" onclick="onclickeventSuzann(event)"></div>
+    <div id="threejs-container" class="suzann-container" onclick="onClick(event)"></div>
 
     <nav>
-        <ul class="navbar container" >
+        <ul class="navbar container">
             <li class="a">Start</li>
             <li class="b">Bewerbung</li>
             <li class="c">lebenslauf</li>
@@ -31,102 +31,106 @@
             <a class="v blink">Navigation</a>
         </ul>
     </nav>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
-     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
-    
+    <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+
     <script>
-        
-        let scene, camera, renderer,suzannObj,controls,gui;
+        let scene, camera, renderer, suzannObj, controls, gui;
 
-
-   
-        
         function init() {
-
-            scene = new THREE.Scene()
-            //camera
+            scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(-10,20,10);
-            camera.lookAt(0,-4,0);
+            camera.position.set(-10, 20, 10);
+            camera.lookAt(0, -4, 0);
 
-            //render
-    
-            renderer = new THREE.WebGLRenderer({ alpha: true }); //transparent hintergrund
+            renderer = new THREE.WebGLRenderer({ alpha: true });
             renderer.setClearColor(0x00000000, 0);
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.getElementById("threejs-container").appendChild(renderer.domElement);
             animate();
-            
         }
-        // camera follow mouse (away from center)
+
         window.addEventListener('mousemove', function (event) {
-        // Kameraposition basierend auf Mausbewegung
-        //camera.position.x = (event.clientX - window.innerWidth / 0.8) * 0.01;
-         camera.position.y = (event.clientY - window.innerHeight / 0.3) * -0.01;
+            camera.position.y = (event.clientY - window.innerHeight / 0.3) * -0.01;
         });
-            function zoomCamera(delta) {
+
+        function zoomCamera(delta) {
             const fieldOfView = THREE.Math.clamp(camera.fov + delta, 10, 100);
             camera.fov = fieldOfView;
             camera.updateProjectionMatrix();
-            }
+        }
+
         document.addEventListener('wheel', function (event) {
             event.preventDefault();
             zoomCamera(event.deltaY * -0.05);
         });
- 
-        
 
         function light() {
             const ambientLight = new THREE.AmbientLight(0x404040);
             scene.add(ambientLight);
             const directionalLight = new THREE.DirectionalLight(0xffffff);
-            directionalLight.position.set(1, 1, 1).normalize();
+            directionalLight.position.set(2, 1, 1).normalize();
             scene.add(directionalLight);
         }
-
-        //material loader
-        function loadMaterial(texturePath) {
-            const textureLoader = new THREE.TextureLoader();
-            const texture = textureLoader.load(texturePath);
-            const material = new THREE.MeshStandardMaterial({ map: texture, side: THREE.DoubleSide });
-            return material;
-        }
-        ////////load objs
 
         function loadBlueprint() {
             const loader = new THREE.GLTFLoader();
             loader.load('../assets/blueprint.glb', (gltf) => {
-            const setPosition = new THREE.Vector3(0, 0, 0);
-            const setScale = new THREE.Vector3(1, 1, 1);
+                const setPosition = new THREE.Vector3(0, 0, 0);
+                const setScale = new THREE.Vector3(1, 1, 1);
 
-        // Apply the material to all mesh objects in the GLTF model
-            gltf.scene.traverse((child) => {
-                if (child.isMesh) {
-                    child.material = loadMaterial('../assets/materials/blueprint_diffuse.png');
-                }
-            });
+                gltf.scene.traverse((child) => {
+                    if (child.isMesh) {
+                        let normalMap = new THREE.TextureLoader().load('../assets/materials/blueprint_normal.png');
+                        normalMap.repeat.set(2, 2);
+                        normalMap.wrapS = THREE.RepeatWrapping;
+                        normalMap.wrapT = THREE.RepeatWrapping;
+                        const normalScale = new THREE.Vector2(0.3, 0.001);
+                        const material = new THREE.MeshStandardMaterial({
+                            map: new THREE.TextureLoader().load('../assets/materials/blueprint_diffuse.png'),
+                            normalMap: normalMap,
+                            normalScale: normalScale,
+                            side: THREE.DoubleSide
+                        });
+                        child.material = material;
+                    }
+                });
 
-        const blueprint = new objectSpwn(gltf.scene, setPosition, setScale);
+                const blueprint = new objectSpwn(gltf.scene, setPosition, setScale);
             });
         }
 
         function loadSuzann() {
-    const loader = new THREE.GLTFLoader();
-    loader.load('../assets/suzann.gltf', (gltf) => {
-        const setPosition = new THREE.Vector3(0, 0, 0);
-        const setScale = new THREE.Vector3(1, 1, 1);
+            const loader = new THREE.GLTFLoader();
+            loader.load('../assets/suzann.gltf', (gltf) => {
+                const setPosition = new THREE.Vector3(0, 0, 0);
+                const setScale = new THREE.Vector3(1, 1, 1);
+                gltf.scene.name = 'suzann';
 
-        gltf.scene.traverse((child) => {
-            if (child.isMesh) {
-                child.material = loadMaterial('../assets/materials/blueprint_diffuse.png');
-            }
-        });
+                gltf.scene.traverse((child) => {
+                    if (child.isMesh) {
+                        let normalMap = new THREE.TextureLoader().load('../assets/materials/blueprint_normal.png');
+                        normalMap.repeat.set(2, 2);
+                        normalMap.wrapS = THREE.RepeatWrapping;
+                        normalMap.wrapT = THREE.RepeatWrapping;
+                        const normalScale = new THREE.Vector2(0.3, 0.001);
+                        const material = new THREE.MeshStandardMaterial({
+                            map: new THREE.TextureLoader().load('../assets/materials/blueprint_diffuse.png'),
+                            normalMap: normalMap,
+                            normalScale: normalScale,
+                            side: THREE.DoubleSide
+                        });
+                        child.material = material;
+                    }
+                });
 
-        const suzannObj = new objectSpwn(gltf.scene, setPosition, setScale);
-    });
-}
+                suzannObj = new objectSpwn(gltf.scene, setPosition, setScale);
+            });
+        }
 
         class objectSpwn {
             constructor(initObj, setPosition, setScale) {
@@ -136,8 +140,8 @@
                 this.initObj.position.set(this.setPosition.x, this.setPosition.y, this.setPosition.z);
                 this.initObj.scale.set(this.setScale.x, this.setScale.y, this.setScale.z);
                 scene.add(this.initObj);
-                    }
-                }
+            }
+        }
 
         function animate() {
             requestAnimationFrame(animate);
@@ -153,28 +157,83 @@
                 updateObjPosition();
             }
         }
-        //resizers
+
         window.addEventListener('resize', windowResize);
 
         function initObjects() {
-            // Neu positionieren der Layer2-Div
             const layer2 = document.getElementById('layer2');
             layer2.style.height = window.innerHeight / 2 + 'px';
             layer2.style.width = window.innerWidth / 2 + 'px';
             layer2.style.transform = `translate(${window.innerWidth / 4}px, ${window.innerHeight / 4}px)`;
 
-            // resizer funktion (enter new obj here too!)
             light();
             loadBlueprint();
             loadSuzann();
             console.log('Objects initialized');
         }
 
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        
+        function onObjectClick(event, gltfScene) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+
+            const intersects = raycaster.intersectObjects(gltfScene.children, true);
+
+            if (intersects.length > 0) {
+                const clickedObject = intersects[0].object;
+
+                if (clickedObject.isMesh) {
+                    // Direkt die Farbe ändern
+                    if (clickedObject.material) {
+                        clickedObject.material.color.set(0x00ff00);  // Setze die Farbe auf Grün
+                        console.log('Mesh exists');
+                    }
+                }
+                console.log('clickedObject.name:', clickedObject.name);
+                console.log('layer1 background color:', document.getElementById('layer1').style.backgroundColor);
+               
+            // Ändere den Hintergrund nur, wenn das geklickte Objekt den Namen 'suzann' hat
+            if (clickedObject.name === 'suzann' ) {
+                document.getElementById('layer1').style.backgroundColor = 'green';
+                document.getElementById('layer2').style.display = 'none';
+                
+                    }
+                }
+            }
+
+
+        function onClick(event) {
+            onObjectClick(event, suzannObj.initObj);
+        }
+
+        document.getElementById('threejs-container').addEventListener('click', onClick, false);
         windowResize();
         init();
         initObjects();
-        
-        
     </script>
+        <script>//ergänzung für den css textinhalt änderung(innerhtml)
+            // Funktion zum Aktualisieren des Textinhalts basierend auf der Bildschirmbreite
+       function updateTextContent() {
+           var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+           var layer1 = document.getElementById('layer1');
+       
+           if (screenWidth <= 600) {
+               layer1.innerText = 'If you dont use a smaller Device, please change the window-size for a better experience !';
+           } else {
+               layer1.innerText = 'Inhalt für Layer 1';
+           }
+       }
+       window.addEventListener('resize', function () {
+           updateTextContent();
+       });
+       // Event-Listener für das 'DOMContentLoaded'-Event, um den Textinhalt beim Laden der Seite zu initialisieren
+       window.addEventListener('DOMContentLoaded', function () {
+           updateTextContent();
+       });
+           </script>
 </body>
 </html>
