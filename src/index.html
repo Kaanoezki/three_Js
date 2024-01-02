@@ -31,37 +31,71 @@
             <a class="v blink">Navigation</a>
         </ul>
     </nav>
-    
+    <script type="module">
+        import * as THREE from 'three';
+        import { EffectComposer } from 'https://threejs.org/examples/jsm/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'https://threejs.org/examples/jsm/postprocessing/RenderPass.js';
+        import { OutlinePass } from 'https://threejs.org/examples/jsm/postprocessing/OutlinePass.js';
+        import { FXAAShader } from 'https://threejs.org/examples/jsm/shaders/FXAAShader.js';
+        let outlinePass;
+        function toggleOutline() {
+            const objectsInScene = scene.children.filter(obj => obj.isMesh);
+            outlinePass.selectedObjects = objectsInScene;
+        }
 
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+    
     <script src="sceneObjects.js"></script>
+    <script src="mouseEvents.js"></script>
+   
+
     <script>
         let scene, camera, renderer, suzannObj, controls, gui;
 
         function init() {
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(-10, 0, 20);
-            camera.lookAt(0, -30, 0);
+            camera.position.set(0, 5, 5);
+            camera.lookAt(0, -0, 0);
 
             renderer = new THREE.WebGLRenderer({ alpha: true });
             renderer.setClearColor(0x00000000, 0);
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.getElementById("threejs-container").appendChild(renderer.domElement);
             animate();
+
+            //iso view
+            // 45 Grad um die x-Achse
+            function isoRotation(){
+
+                
+                const rotationMatrixX = new THREE.Matrix4().makeRotationX(Math.PI /90);
+                const rotationMatrixY = new THREE.Matrix4().makeRotationY(Math.PI / 4);
+
+                const newPosition = camera.position.clone();
+                newPosition.applyMatrix4(rotationMatrixX);
+                newPosition.applyMatrix4(rotationMatrixY);
+                camera.position.copy(newPosition);
+
+                // Drehet die ganze Szene
+                scene.applyMatrix4(rotationMatrixX);
+                scene.applyMatrix4(rotationMatrixY);
+                }
+                isoRotation();
         }
 
         window.addEventListener('mousemove', function (event) {
-            camera.position.y = (event.clientY - window.innerHeight / 0.35) * -0.01;
-            camera.position.x = (event.clientX - window.innerHeight / 0.9) * 0.01;
+            camera.position.y = (event.clientY - window.innerHeight / 0.9) * -0.01;
+            camera.position.x = (event.clientX - window.innerHeight / 1) * 0.01;
         });
 
         function zoomCamera(delta) {
-            const fieldOfView = THREE.Math.clamp(camera.fov + delta,5 , 100);
+            const fieldOfView = THREE.Math.clamp(camera.fov + delta,2 , 100);
             camera.fov = fieldOfView;
             camera.updateProjectionMatrix();
         }
@@ -72,17 +106,15 @@
         });
 
         function light() {
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.01);
             scene.add(ambientLight);
             
-
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
             directionalLight.castShadow = true;
             directionalLight.shadow.mapSize.width = 1024;
             directionalLight.shadow.mapSize.height = 1024;
-            directionalLight.position.set(5, 5, 1);
+            directionalLight.position.set(-1, 5, 0);
             scene.add(directionalLight);
-
 
             const amplitude = 5; // Adjust the amplitude of the swing
             const frequency = 0.0005; // Adjust the frequency of the swing
@@ -98,40 +130,39 @@
         animateLightSwing();
 
             const lightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
-    scene.add(lightHelper);
+            scene.add(lightHelper);
+           
         }
-           // test objekt, dont overthink
+           // test objekt, dont overthink (suzann is offmap)
         function loadBlueprint() {
             const loader = new THREE.GLTFLoader();
-            loader.load('../assets/blueprint.glb', (gltf) => {
-                const setPosition = new THREE.Vector3(0, -1, 0);
-                const setScale = new THREE.Vector3(2, 1, 2);
+            loader.load('../assets/objects/turntable.glb', (gltf) => {
+                // const setPosition = new THREE.Vector3(-0.5625 , -0.2375 , 0);
+                const setPosition = new THREE.Vector3(-5625 , -2375 , 0);
+                const setScale = new THREE.Vector3(1.2, 1, 1.2);
 
                 gltf.scene.traverse((child) => {
-                    if (child.isMesh) {
-                        let normalMap = new THREE.TextureLoader().load('../assets/materials/blueprint_normal.png');
-                        normalMap.repeat.set(2, 2);
-                        normalMap.wrapS = THREE.RepeatWrapping;
-                        normalMap.wrapT = THREE.RepeatWrapping;
-                        const normalScale = new THREE.Vector2(0.3, 0.001);
-                        const material = new THREE.MeshStandardMaterial({
-                            map: new THREE.TextureLoader().load('../assets/materials/blueprint_diffuse.png'),
-                            normalMap: normalMap,
-                            normalScale: normalScale,
-                            side: THREE.DoubleSide
-                        });
-                        child.material = material;
-                    }
+            if (child.isMesh) {
+                // Erstellen Sie ein MeshStandardMaterial ohne Texturen
+                const material = new THREE.MeshStandardMaterial({
+                    color: 0x00FFFF,  // Farbe des Materials
+                    metalness: 0.1,     // Setzen Sie die Metallheit auf 1 für ein metallisches Material
+                    roughness: 0.1,   // Optional: Passen Sie die Rauheit an
+                    flatShading: true,
                 });
+
+                child.material = material;
+            }
+        });
 
                 const blueprint = new objectSpwn(gltf.scene, setPosition, setScale);
             });
         }
-        // test objekt, dont overthink
+        // test objekt, dont overthink (suzann is offmap)
         function loadSuzann() {
             const loader = new THREE.GLTFLoader();
             loader.load('../assets/suzann.gltf', (gltf) => {
-                const setPosition = new THREE.Vector3(0, 0, 0);
+                const setPosition = new THREE.Vector3(1000, 0, 0);
                 const setScale = new THREE.Vector3(1, 1, 1);
                 gltf.scene.name = 'suzann';
 
@@ -175,8 +206,6 @@
 
         window.addEventListener('resize', windowResize);
 
-        
-
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
         
@@ -210,7 +239,6 @@
                 }
             }
 
-
         function onClick(event) {
             onObjectClick(event, suzannObj.initObj);
         }
@@ -239,6 +267,7 @@
        window.addEventListener('DOMContentLoaded', function () {
            updateTextContent();
        });
-           </script>
+    </script>
+
 </body>
 </html>

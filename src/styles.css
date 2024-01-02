@@ -28,9 +28,10 @@ canvas {
     z-index: -30;
     
 }
-
+/*color harmony: #fff562, #62fff5, #f562ff */
 #layer2 {
-    background-color:white;
+    border-style: solid;
+    background-color:#62fff5;
     background-position: center;
     display: flex;
     flex-direction: column;
