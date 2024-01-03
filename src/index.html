@@ -21,7 +21,7 @@
     <div id="layer1" class="layer">Inhalt für Layer 1</div>
     <div id="layer2" class="layer outliner">Inhalt für Layer 2</div>
     <div id="threejs-container" class="suzann-container" onclick="onClick(event)"></div>
-
+    <!--navbar-->
     <nav>
         <ul class="navbar container">
             <li class="a">Start</li>
@@ -32,30 +32,16 @@
         </ul>
     </nav>
     <script></script>
+    <!--external sources-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script type="module">
-        // scene 
-        var outlinePass;
-        var scene, camera, renderer;
-        import * as THREE from 'three';
-        import { EffectComposer } from 'https://threejs.org/examples/jsm/postprocessing/EffectComposer.js';
-        import { RenderPass } from 'https://threejs.org/examples/jsm/postprocessing/RenderPass.js';
-        import { OutlinePass } from 'https://threejs.org/examples/jsm/postprocessing/OutlinePass.js';
-        import { FXAAShader } from 'https://threejs.org/examples/jsm/shaders/FXAAShader.js';
-         var isSceneInitialized = false;
-        function toggleOutline() {
-            const objectsInScene = scene.children.filter(obj => obj.isMesh);
-            outlinePass.selectedObjects = objectsInScene;
-        }
-        export { scene };
-    </script>
-
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script> -->
-    <!-- <script src="./outlineShader.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
     <script src="sceneObjects.js"></script>
     <script src="mouseEvents.js"></script>
-   
+    <script type="module">
+        // scene 
+        var scene, camera, renderer;
+    </script>
 
     <script>
        var suzannObj, controls, gui;
@@ -76,37 +62,13 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.getElementById("threejs-container").appendChild(renderer.domElement);
             animate();
-            //iso view
-            // 45 Grad um die x-Achse
-            function isoRotation(){
-
-                const rotationMatrixX = new THREE.Matrix4().makeRotationX(Math.PI /90);
-                const rotationMatrixY = new THREE.Matrix4().makeRotationY(Math.PI / 4);
-
-                const newPosition = camera.position.clone();
-                newPosition.applyMatrix4(rotationMatrixX);
-                newPosition.applyMatrix4(rotationMatrixY);
-                camera.position.copy(newPosition);
-
-                // Drehet die ganze Szene
-                scene.applyMatrix4(rotationMatrixX);
-                scene.applyMatrix4(rotationMatrixY);
-                }
-                isoRotation();
+            isoRotation();
+               
         }
                 const sceneInitializedEvent = new Event('sceneInitialized');
                 window.dispatchEvent(sceneInitializedEvent);
         init();
-            window.addEventListener('mousemove', function (event) {
-            // Überprüfe, ob der Benutzer auf Layer 2 ist
-            var layer2 = document.getElementById('layer2');
 
-            // Wenn der Benutzer auf Layer 2 ist, aktualisiere die Kameraposition
-            if (isElementInViewport(layer2)) {
-                camera.position.y = (event.clientY - window.innerHeight / 0.9) * -0.01;
-                camera.position.x = (event.clientX - window.innerWidth / 2) * 0.01;
-            }
-        });
         // Funktion, um zu überprüfen, ob ein Element im Viewport ist
         function isElementInViewport(el) {
             var rect = el.getBoundingClientRect();
@@ -117,14 +79,65 @@
                 rect.right <= (window.innerWidth || document.documentElement.clientWidth)
             );
         }
-        function zoomCamera(delta) {
-            const fieldOfView = THREE.Math.clamp(camera.fov + delta,2 , 100);
-            camera.fov = fieldOfView;
-            camera.updateProjectionMatrix();
-        }
+        gui = new dat.GUI();
+        const zoomSettings = {
+            zoom: 4
+        };
+        const rotationSettings = {
+        rotationY: 2.5,
+        rotationX: 1,
+  
+        };
+        gui.add(zoomSettings, 'zoom', 0.1, 20).onChange(zoomCamera);
+        const targetPosition = new THREE.Vector3(0, 0, 0);
+        function zoomCamera() {
+        const newZoom = zoomSettings.zoom;
+        const initialDistance = 50; 
+        const newDistance = initialDistance / newZoom;
+        const direction = new THREE.Vector3().subVectors(camera.position, targetPosition).normalize();
+        // Berechne die neue Position der Kamera
+        const newPosition = targetPosition.clone().add(direction.multiplyScalar(newDistance));
+
+        camera.position.copy(newPosition);
+        camera.lookAt(targetPosition);
+        camera.updateProjectionMatrix();
+        
+    }
+    
+// Füge diese Zeilen zu deinem Skript hinzu, unter dem Zoom-GUI
+
+gui.add(rotationSettings, 'rotationY', 0, Math.PI * 2).onChange(updateRotation);
+gui.add(rotationSettings, 'rotationX', 0, Math.PI * 2).onChange(updateRotation);
+
+// Aktualisierte Funktion für die Kamerarotation
+function updateRotation() {
+    isoRotation(rotationSettings.rotationY, rotationSettings.rotationX);
+}
+
+// Funktion für die isometrische Rotation
+function isoRotation(rotationY, rotationX) {
+    const target = new THREE.Vector3(0, 0, 0); // Zielpunkt, auf den die Kamera schaut
+
+    // Setze die Kameraposition auf eine isometrische Ansicht
+    const distance = 10; // Entfernung von der Szene
+
+    // Verwende die benutzerdefinierten Rotationswerte oder die isometrischen Standardwerte
+    const phi = rotationX !== undefined ? rotationX : Math.PI / 4;
+    const theta = rotationY !== undefined ? rotationY : Math.PI / 2.5;
+
+    const x = distance * Math.sin(phi) * Math.cos(theta);
+    const y = distance * Math.cos(phi);
+    const z = distance * Math.sin(phi) * Math.sin(theta);
+
+    camera.position.set(x, y, z);
+    camera.lookAt(target);
+}
+updateRotation();
+// Rest deines Skripts
+
         function isElementInViewport(el) {
         var rect = el.getBoundingClientRect();
-
+        
         return (
             rect.top >= 0 &&
             rect.left >= 0 &&
@@ -144,17 +157,13 @@
         }
 
         document.addEventListener('wheel', function (event) {
-            // Überprüfe, ob der Benutzer auf Layer 2 ist
             var layer2 = document.getElementById('layer2');
-
             // Wenn der Benutzer auf Layer 2 ist, verhindere das Standard-Scrollverhalten und aktualisiere die Kameraposition
             if (isElementInViewport(layer2)) {
                 event.preventDefault();
                 zoomCamera(event.deltaY * -0.05);
             }
         });
-
-        // Funktion, um zu überprüfen, ob ein Element im Viewport ist
         function isElementInViewport(el) {
             var rect = el.getBoundingClientRect();
 
@@ -313,6 +322,7 @@
         document.getElementById('threejs-container').addEventListener('click', onClick, false);
         windowResize();
         initObjects();
+        
     </script>
         <script>//ergänzung für den css textinhalt änderung(innerhtml)
             // Funktion zum Aktualisieren des Textinhalts basierend auf der Bildschirmbreite
@@ -333,6 +343,7 @@
        window.addEventListener('DOMContentLoaded', function () {
            updateTextContent();
        });
+
     </script>
 
 </body>

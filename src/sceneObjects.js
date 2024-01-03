@@ -215,5 +215,5 @@ function initObjects() {
     loadMonitor();
     console.log('Objects initialized');
 }
-addOutlineObjFromLayer2();
+
 
