@@ -1,5 +1,7 @@
 /*color harmony: #fff562, #62fff5, #f562ff */
-
+html {
+    overflow: auto;
+}
 body  
 {
     margin: 0;
