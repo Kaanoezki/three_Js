@@ -4,11 +4,13 @@ body
 {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    /* overflow: hidden; */
+    overflow: auto;
 }
 
 canvas {
     display: block;
+    position: absolute;
     body { margin: 0; }
     top: 0;
     left: 0;
@@ -20,6 +22,7 @@ canvas {
     position: absolute;
     width: 100%;
     height: 100%;
+    height: 5000px;
     z-index: -1;
 }
 
@@ -53,9 +56,6 @@ canvas {
         background-color: red; 
    
     }
-
-
-    
 
     #layer2 {
         height: 50vh;
@@ -106,7 +106,26 @@ canvas {
         height: 50vh;
         width: 50vw;
     }
-    
-    
 }
-}
+    #outliner {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        border: 1px solid #ccc;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .outliner-item {
+        cursor: pointer;
+        margin-bottom: 5px;
+        user-select: none;
+    }
+
+    .outliner-item:hover {
+        color: #007bff;
+    }
+
+    }
