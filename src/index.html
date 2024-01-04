@@ -18,6 +18,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
 </head>
 <body>
+  
+   
     <div id="layer1" class="layer">Inhalt für Layer 1</div>
     <div id="layer2" class="layer outliner">Inhalt für Layer 2</div>
     <div id="threejs-container" class="suzann-container" onclick="onClick(event)"></div>
@@ -31,40 +33,15 @@
             <a class="v blink">Navigation</a>
         </ul>
     </nav>
-    <!-- outliner-->
-    <!-- <script type="module">
-        import * as THREE from 'three';
-        import Stats from 'three/addons/libs/stats.module.js';
-        import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
-        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-        import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
-        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-        import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
-        import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js';
-        import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
-        import { FXAAShader } from 'three/addons/shaders/FXAAShader.js';
-        let container, stats;
-        let composer, effectFXAA, outlinePass;
-        let selectedObjects = [];
-			const obj3d = new THREE.Object3D();
-			const group = new THREE.Group();
-
-			const params = {
-				edgeStrength: 3.0,
-				edgeGlow: 0.0,
-				edgeThickness: 1.0,
-				pulsePeriod: 0,
-				rotate: false,
-				usePatternTexture: false
-			};
-        </script> -->
-
-
+   
     <!--external sources-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+    <script src="https://unpkg.com/three@0.126.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <!--outliner script-->
+
+    <!--internal scripts-->
     <script src="sceneObjects.js"></script>
     <script src="mouseEvents.js"></script>
     <script type="module">
@@ -97,6 +74,8 @@
         }
                 const sceneInitializedEvent = new Event('sceneInitialized');
                 window.dispatchEvent(sceneInitializedEvent);
+
+           
         init();
 
         
@@ -180,11 +159,12 @@ updateRotation();
 
         document.addEventListener('wheel', function (event) {
             var layer2 = document.getElementById('layer2');
-            if (isElementInViewport(layer2)) {
+            if (!isElementInViewport(layer2)) {
                 event.preventDefault();
                 zoomCamera(event.deltaY * -0.05);
             }
         });
+
         function isElementInViewport(el) {
             var rect = el.getBoundingClientRect();
 
@@ -358,6 +338,7 @@ updateRotation();
         windowResize();
         initObjects();
         
+        
     </script>
         <script>//ergänzung für den css textinhalt änderung(innerhtml)
             // Funktion zum Aktualisieren des Textinhalts basierend auf der Bildschirmbreite
@@ -378,6 +359,8 @@ updateRotation();
        window.addEventListener('DOMContentLoaded', function () {
            updateTextContent();
        });
+
     </script>
+    
 </body>
 </html>
