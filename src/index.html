@@ -177,39 +177,76 @@ updateRotation();
         }
 
         function light() {
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.01);
-            scene.add(ambientLight);
-            
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-            directionalLight.castShadow = true;
-            directionalLight.shadow.mapSize.width = 1024;
-            directionalLight.shadow.mapSize.height = 1024;
-            directionalLight.position.set(-1, 5, 0);
-            scene.add(directionalLight);
+    // Annahme: Directional Light wurde bereits erstellt und zur Szene hinzugefügt
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(1, 1, 0).normalize();
+    scene.add(directionalLight);
 
-            const amplitude = 5; // Adjust the amplitude of the swing
-            const frequency = 0.0005; // Adjust the frequency of the swing
+    // DirectionalLightHelper zeigt die Richtung des Lichts an
+    const lightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
+    scene.add(lightHelper);
 
-        function animateLightSwing() {
-            const time = Date.now() * frequency;
-            const zPos = amplitude * Math.sin(time);
-            directionalLight.position.setZ(zPos);
-            requestAnimationFrame(animateLightSwing);
+    let isDragging = false;
+    const lerpFactor = 0.05; // Anpassbare Lerp-Faktor für die Sanftheit der Bewegung
+
+    // Zielposition für die Lerpbewegung
+    const targetPosition = new THREE.Vector3();
+
+    // Funktion zum Starten des Dragging
+    function startDragging(event) {
+        isDragging = true;
+    }
+
+    // Funktion zum Stoppen des Dragging
+    function stopDragging() {
+        isDragging = false;
+    }
+
+    // Funktion zum Bewegen des Lichts basierend auf Mausbewegungen
+    function moveLight(event) {
+        if (isDragging) {
+            const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            const mousePosition = new THREE.Vector3(mouseX, mouseY, 0.5);
+            mousePosition.unproject(camera);
+
+            const raycaster = new THREE.Raycaster(camera.position, mousePosition.sub(camera.position).normalize());
+            const intersection = raycaster.intersectObject(scene, true);
+
+            if (intersection.length > 0) {
+                targetPosition.copy(intersection[0].point);
+            }
         }
+    }
 
-        // Start the animation
-        animateLightSwing();
+    // Füge Event Listener für das Starten und Stoppen des Dragging hinzu
+    document.addEventListener('mousedown', startDragging);
+    document.addEventListener('mouseup', stopDragging);
 
-            const lightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
-            scene.add(lightHelper);
-           
-        }
+    // Füge Event Listener für das Bewegen des Lichts hinzu
+    document.addEventListener('mousemove', moveLight);
+
+    // Beispiel: Animiere das Licht mit Lerpbewegung
+    function animateLightSwing() {
+        // Lerpe die aktuelle Position zum Ziel
+        directionalLight.position.lerp(targetPosition, lerpFactor);
+        lightHelper.update(); // Aktualisiere den Helper
+        requestAnimationFrame(animateLightSwing);
+    }
+
+    // Starte die Animation
+    animateLightSwing();
+}
+
+
+
            // test objekt, dont overthink (suzann is offmap)
         function loadBlueprint() {
             const loader = new THREE.GLTFLoader();
             loader.load('../assets/objects/turntable.glb', (gltf) => {
                 // const setPosition = new THREE.Vector3(-0.5625 , -0.2375 , 0);
-                const setPosition = new THREE.Vector3(-5625 , -2375 , 0);
+                const setPosition = new THREE.Vector3(1 , 1, 0);
                 const setScale = new THREE.Vector3(1.2, 1, 1.2);
 
                 gltf.scene.traverse((child) => {
