@@ -18,6 +18,5 @@ console.log('mouseevent.js active')
 //     //     tableObj.setPosition.y += movementSpeed;
 //     //     tableObj.initObj.position.copy(tableObj.setPosition);
 //     } 
-   
 // }
 // document.addEventListener('mousemove', onMouseMove, false);

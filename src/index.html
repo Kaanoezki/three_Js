@@ -31,7 +31,36 @@
             <a class="v blink">Navigation</a>
         </ul>
     </nav>
-    <script></script>
+    <!-- outliner-->
+    <!-- <script type="module">
+        import * as THREE from 'three';
+        import Stats from 'three/addons/libs/stats.module.js';
+        import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+        import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js';
+        import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+        import { FXAAShader } from 'three/addons/shaders/FXAAShader.js';
+        let container, stats;
+        let composer, effectFXAA, outlinePass;
+        let selectedObjects = [];
+			const obj3d = new THREE.Object3D();
+			const group = new THREE.Group();
+
+			const params = {
+				edgeStrength: 3.0,
+				edgeGlow: 0.0,
+				edgeThickness: 1.0,
+				pulsePeriod: 0,
+				rotate: false,
+				usePatternTexture: false
+			};
+        </script> -->
+
+
     <!--external sources-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
@@ -44,7 +73,9 @@
     </script>
 
     <script>
-       var suzannObj, controls, gui;
+        var mouseY = 0, mouseX = 0 ,targetX = 0, targetY = 0;
+        var suzannObj, controls, gui;
+       //init scene
         function init() {
             //scene
             scene = new THREE.Scene();
@@ -63,11 +94,12 @@
             document.getElementById("threejs-container").appendChild(renderer.domElement);
             animate();
             isoRotation();
-               
         }
                 const sceneInitializedEvent = new Event('sceneInitialized');
                 window.dispatchEvent(sceneInitializedEvent);
         init();
+
+        
 
         // Funktion, um zu überprüfen, ob ein Element im Viewport ist
         function isElementInViewport(el) {
@@ -103,28 +135,20 @@
         camera.updateProjectionMatrix();
         
     }
-    
-// Füge diese Zeilen zu deinem Skript hinzu, unter dem Zoom-GUI
 
 gui.add(rotationSettings, 'rotationY', 0, Math.PI * 2).onChange(updateRotation);
 gui.add(rotationSettings, 'rotationX', 0, Math.PI * 2).onChange(updateRotation);
 
-// Aktualisierte Funktion für die Kamerarotation
 function updateRotation() {
     isoRotation(rotationSettings.rotationY, rotationSettings.rotationX);
 }
 
-// Funktion für die isometrische Rotation
 function isoRotation(rotationY, rotationX) {
-    const target = new THREE.Vector3(0, 0, 0); // Zielpunkt, auf den die Kamera schaut
-
-    // Setze die Kameraposition auf eine isometrische Ansicht
-    const distance = 10; // Entfernung von der Szene
-
-    // Verwende die benutzerdefinierten Rotationswerte oder die isometrischen Standardwerte
+    const target = new THREE.Vector3(0, 0, 0);
+    const distance = 10; 
     const phi = rotationX !== undefined ? rotationX : Math.PI / 4;
     const theta = rotationY !== undefined ? rotationY : Math.PI / 2.5;
-
+   
     const x = distance * Math.sin(phi) * Math.cos(theta);
     const y = distance * Math.cos(phi);
     const z = distance * Math.sin(phi) * Math.sin(theta);
@@ -133,8 +157,6 @@ function isoRotation(rotationY, rotationX) {
     camera.lookAt(target);
 }
 updateRotation();
-// Rest deines Skripts
-
         function isElementInViewport(el) {
         var rect = el.getBoundingClientRect();
         
@@ -158,7 +180,6 @@ updateRotation();
 
         document.addEventListener('wheel', function (event) {
             var layer2 = document.getElementById('layer2');
-            // Wenn der Benutzer auf Layer 2 ist, verhindere das Standard-Scrollverhalten und aktualisiere die Kameraposition
             if (isElementInViewport(layer2)) {
                 event.preventDefault();
                 zoomCamera(event.deltaY * -0.05);
@@ -256,12 +277,26 @@ updateRotation();
                 suzannObj = new objectSpwn(gltf.scene, setPosition, setScale);
             });
         }
-        // css update
+        // css update/ lerp effect
         document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('mousemove', (event) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
             updateTextContent();
         });
-
+    });
+        //lerp function
+        function animateCamera() {
+        targetX = (mouseX / window.innerWidth) * 1 - 1;
+        targetY = -(mouseY / window.innerHeight) * 1 + 1;
+        const lerpFactor = 0.1; 
+        camera.position.x = THREE.MathUtils.lerp(camera.position.x, targetX * 5, lerpFactor);
+        camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY * 5, lerpFactor);
+        camera.lookAt(scene.position);
+        }
         function animate() {
+            animateCamera();//lerp 
+            
             requestAnimationFrame(animate);
             renderer.render(scene, camera);
             if (!scene) {
@@ -343,8 +378,6 @@ updateRotation();
        window.addEventListener('DOMContentLoaded', function () {
            updateTextContent();
        });
-
     </script>
-
 </body>
 </html>

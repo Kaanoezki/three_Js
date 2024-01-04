@@ -8,6 +8,7 @@
   background-color: rgba(255, 228, 196, 0.493);
  
   border-style: solid;
+  border-color: white;
   overflow: hidden;
   background-size: cover;
   justify-content: space-evenly;
@@ -64,7 +65,7 @@
   position: relative;
   font-size:medium;
   text-align:start;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #ffffff;
 }
  .navbar li:hover{
   display: flex;
