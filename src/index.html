@@ -22,7 +22,7 @@
    
     <div id="layer1" class="layer">Inhalt für Layer 1</div>
     <div id="layer2" class="layer outliner">Inhalt für Layer 2</div>
-    <div id="threejs-container" class="suzann-container" onclick="onClick(event)"></div>
+    <div id="threejs-container" onclick="onClick(event)"></div>
     <!--navbar-->
     <nav>
         <ul class="navbar container">
@@ -38,12 +38,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
-    <script src="https://unpkg.com/three@0.126.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <!-- <script src="https://unpkg.com/three@0.126.0/examples/js/postprocessing/EffectComposer.js"></script> -->
     <!--outliner script-->
 
     <!--internal scripts-->
     <script src="sceneObjects.js"></script>
-    <script src="mouseEvents.js"></script>
     <script type="module">
         // scene 
         var scene, camera, renderer;
@@ -51,7 +50,7 @@
 
     <script>
         var mouseY = 0, mouseX = 0 ,targetX = 0, targetY = 0;
-        var suzannObj, controls, gui;
+        var  controls, gui;
        //init scene
         function init() {
             //scene
@@ -75,11 +74,7 @@
                 const sceneInitializedEvent = new Event('sceneInitialized');
                 window.dispatchEvent(sceneInitializedEvent);
 
-           
         init();
-
-        
-
         // Funktion, um zu überprüfen, ob ein Element im Viewport ist
         function isElementInViewport(el) {
             var rect = el.getBoundingClientRect();
@@ -114,7 +109,6 @@
         camera.updateProjectionMatrix();
         
     }
-
 gui.add(rotationSettings, 'rotationY', 0, Math.PI * 2).onChange(updateRotation);
 gui.add(rotationSettings, 'rotationX', 0, Math.PI * 2).onChange(updateRotation);
 
@@ -175,73 +169,45 @@ updateRotation();
                 rect.right <= (window.innerWidth || document.documentElement.clientWidth)
             );
         }
-
         function light() {
     // Annahme: Directional Light wurde bereits erstellt und zur Szene hinzugefügt
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(1, 1, 0).normalize();
+    directionalLight.position.set(1, 5, 0).normalize();
     scene.add(directionalLight);
 
     // DirectionalLightHelper zeigt die Richtung des Lichts an
     const lightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
     scene.add(lightHelper);
 
-    let isDragging = false;
-    const lerpFactor = 0.05; // Anpassbare Lerp-Faktor für die Sanftheit der Bewegung
+    const ambientLight = new THREE.AmbientLight(0xffffff); // Farbe und Intensität
+    ambientLight.intensity = 1; // Hier die Intensität anpassen (zwischen 0 und 1)
+    ambientLight.position.set(1, 5, 0);
+    scene.add(ambientLight);
 
-    // Zielposition für die Lerpbewegung
-    const targetPosition = new THREE.Vector3();
+    const spotLight = new THREE.SpotLight(0xffffff, 15);
+    spotLight.angle = Math.PI / 60; // Öffnungswinkel des Strahls
+    spotLight.penumbra = 1; // Weiche Kante des Strahls
+    spotLight.decay = 5; // Abnahme des Lichts mit dem Abstand
+    spotLight.distance = 200; // Maximale Reichweite des Strahls
+    camera.add(spotLight);
 
-    // Funktion zum Starten des Dragging
-    function startDragging(event) {
-        isDragging = true;
+    const ambientLightSpot = new THREE.AmbientLight(0xffffff); // Farbe und Intensität
+    ambientLightSpot.intensity = 2; // Hier die Intensität anpassen (zwischen 0 und 1)
+    camera.add(ambientLightSpot);
+
+    function animateLightFollowCamera() {
+        requestAnimationFrame(animateLightFollowCamera);
+        ambientLight.position.copy(camera.position);
+        ambientLightSpot.position.copy(camera.position);
+
+        // Aktualisiere Spot-Lichtposition und Zielposition auf den Ursprung
+        const target = new THREE.Vector3(0, 3, 0);
+        spotLight.position.copy(camera.position);
+        spotLight.target.position.copy(target);
     }
 
-    // Funktion zum Stoppen des Dragging
-    function stopDragging() {
-        isDragging = false;
-    }
-
-    // Funktion zum Bewegen des Lichts basierend auf Mausbewegungen
-    function moveLight(event) {
-        if (isDragging) {
-            const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-
-            const mousePosition = new THREE.Vector3(mouseX, mouseY, 0.5);
-            mousePosition.unproject(camera);
-
-            const raycaster = new THREE.Raycaster(camera.position, mousePosition.sub(camera.position).normalize());
-            const intersection = raycaster.intersectObject(scene, true);
-
-            if (intersection.length > 0) {
-                targetPosition.copy(intersection[0].point);
-            }
-        }
-    }
-
-    // Füge Event Listener für das Starten und Stoppen des Dragging hinzu
-    document.addEventListener('mousedown', startDragging);
-    document.addEventListener('mouseup', stopDragging);
-
-    // Füge Event Listener für das Bewegen des Lichts hinzu
-    document.addEventListener('mousemove', moveLight);
-
-    // Beispiel: Animiere das Licht mit Lerpbewegung
-    function animateLightSwing() {
-        // Lerpe die aktuelle Position zum Ziel
-        directionalLight.position.lerp(targetPosition, lerpFactor);
-        lightHelper.update(); // Aktualisiere den Helper
-        requestAnimationFrame(animateLightSwing);
-    }
-
-    // Starte die Animation
-    animateLightSwing();
+    animateLightFollowCamera();
 }
-
-
-
-           // test objekt, dont overthink (suzann is offmap)
         function loadBlueprint() {
             const loader = new THREE.GLTFLoader();
             loader.load('../assets/objects/turntable.glb', (gltf) => {
@@ -266,34 +232,8 @@ updateRotation();
                 const blueprint = new objectSpwn(gltf.scene, setPosition, setScale);
             });
         }
-        // test objekt, dont overthink (suzann is offmap)
-        function loadSuzann() {
-            const loader = new THREE.GLTFLoader();
-            loader.load('../assets/suzann.gltf', (gltf) => {
-                const setPosition = new THREE.Vector3(1000, 0, 0);
-                const setScale = new THREE.Vector3(1, 1, 1);
-                gltf.scene.name = 'suzann';
-
-                gltf.scene.traverse((child) => {
-                    if (child.isMesh) {
-                        let normalMap = new THREE.TextureLoader().load('../assets/materials/blueprint_normal.png');
-                        normalMap.repeat.set(2, 2);
-                        normalMap.wrapS = THREE.RepeatWrapping;
-                        normalMap.wrapT = THREE.RepeatWrapping;
-                        const normalScale = new THREE.Vector2(0.3, 0.001);
-                        const material = new THREE.MeshStandardMaterial({
-                            map: new THREE.TextureLoader().load('../assets/materials/blueprint_diffuse.png'),
-                            normalMap: normalMap,
-                            normalScale: normalScale,
-                            side: THREE.DoubleSide
-                        });
-                        child.material = material;
-                    }
-                });
-
-                suzannObj = new objectSpwn(gltf.scene, setPosition, setScale);
-            });
-        }
+      
+        
         // css update/ lerp effect
         document.addEventListener('DOMContentLoaded', function () {
             document.addEventListener('mousemove', (event) => {
@@ -336,15 +276,12 @@ updateRotation();
 
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
-        
+        // raycast obj is clicked
         function onObjectClick(event, gltfScene) {
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
             raycaster.setFromCamera(mouse, camera);
-
             const intersects = raycaster.intersectObjects(gltfScene.children, true);
-
             if (intersects.length > 0) {
                 const clickedObject = intersects[0].object;
 
@@ -357,20 +294,17 @@ updateRotation();
                 }
                 console.log('clickedObject.name:', clickedObject.name);
                 console.log('layer1 background color:', document.getElementById('layer1').style.backgroundColor);
-               
-            // Ändere den Hintergrund nur, wenn das geklickte Objekt den Namen 'suzann' hat
-            if (clickedObject.name === 'suzann' ) {
+            // Ändere den Hintergrund nur, wenn das geklickte Objekt den Namen 'enter name' hat
+            if (clickedObject.name === 'room' ) {
                 document.getElementById('layer1').style.backgroundColor = 'green';
                 document.getElementById('layer2').style.display = 'none';
                 
                     }
                 }
-            }
-
+            }   
         function onClick(event) {
-            onObjectClick(event, suzannObj.initObj);
+            onObjectClick(event, roomObj.initObj);
         }
-
         document.getElementById('threejs-container').addEventListener('click', onClick, false);
         windowResize();
         initObjects();
