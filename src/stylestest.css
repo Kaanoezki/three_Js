@@ -1,7 +1,12 @@
+
+
 body {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+    position: relative;
+
+
+    /* display: flex;
+    flex-direction: column; */
+    height: 1000px;
     margin: 0;
 }
 #maincontainer {
@@ -23,6 +28,15 @@ body {
     padding-left: 2vw;
   
 }
+#container2{
+    position: fixed;
+    margin-left: 50vw;
+    height: 0vh;
+}
+
+
+
+
 #logo {
     border-style: solid;
     background-color:red;

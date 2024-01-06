@@ -181,7 +181,7 @@ updateRotation();
 
     const ambientLight = new THREE.AmbientLight(0xffffff); // Farbe und Intensität
     ambientLight.intensity = 1; // Hier die Intensität anpassen (zwischen 0 und 1)
-    ambientLight.position.set(1, 5, 0);
+    ambientLight.position.set(1, 5, 0);     
     scene.add(ambientLight);
 
     const spotLight = new THREE.SpotLight(0xffffff, 15);
@@ -192,7 +192,7 @@ updateRotation();
     camera.add(spotLight);
 
     const ambientLightSpot = new THREE.AmbientLight(0xffffff); // Farbe und Intensität
-    ambientLightSpot.intensity = 2; // Hier die Intensität anpassen (zwischen 0 und 1)
+    ambientLightSpot.intensity = 4; // Hier die Intensität anpassen (zwischen 0 und 1)
     camera.add(ambientLightSpot);
 
     function animateLightFollowCamera() {
@@ -271,41 +271,41 @@ updateRotation();
                 updateObjPosition();
             }
         }
-
         window.addEventListener('resize', windowResize);
 
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
-        // raycast obj is clicked
-        function onObjectClick(event, gltfScene) {
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(gltfScene.children, true);
-            if (intersects.length > 0) {
-                const clickedObject = intersects[0].object;
+        //mouseclick effect
+        // const raycaster = new THREE.Raycaster();
+        // const mouse = new THREE.Vector2();
+        // // raycast obj is clicked
+        // function onObjectClick(event, gltfScene) {
+        //     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        //     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        //     raycaster.setFromCamera(mouse, camera);
+        //     const intersects = raycaster.intersectObjects(gltfScene.children, true);
+        //     if (intersects.length > 0) {
+        //         const clickedObject = intersects[0].object;
 
-                if (clickedObject.isMesh) {
-                    // Direkt die Farbe ändern
-                    if (clickedObject.material) {
-                        clickedObject.material.color.set(0x00ff00);  // Setze die Farbe auf Grün
-                        console.log('Mesh exists');
-                    }
-                }
-                console.log('clickedObject.name:', clickedObject.name);
-                console.log('layer1 background color:', document.getElementById('layer1').style.backgroundColor);
-            // Ändere den Hintergrund nur, wenn das geklickte Objekt den Namen 'enter name' hat
-            if (clickedObject.name === 'room' ) {
-                document.getElementById('layer1').style.backgroundColor = 'green';
-                document.getElementById('layer2').style.display = 'none';
+        //         if (clickedObject.isMesh) {
+        //             // Direkt die Farbe ändern
+        //             if (clickedObject.material) {
+        //                 clickedObject.material.color.set(0x00ff00);  // Setze die Farbe auf Grün
+        //                 console.log('Mesh exists');
+        //             }
+        //         }
+        //         console.log('clickedObject.name:', clickedObject.name);
+        //         console.log('layer1 background color:', document.getElementById('layer1').style.backgroundColor);
+        //     // Ändere den Hintergrund nur, wenn das geklickte Objekt den Namen 'enter name' hat
+        //     if (clickedObject.name === 'room' ) {
+        //         document.getElementById('layer1').style.backgroundColor = 'green';
+        //         document.getElementById('layer2').style.display = 'none';
                 
-                    }
-                }
-            }   
-        function onClick(event) {
-            onObjectClick(event, roomObj.initObj);
-        }
-        document.getElementById('threejs-container').addEventListener('click', onClick, false);
+        //             }
+        //         }
+        //     }   
+        // function onClick(event) {
+        //     onObjectClick(event, roomObj.initObj);
+        // }
+        // document.getElementById('threejs-container').addEventListener('click', onClick, false);
         windowResize();
         initObjects();
         
