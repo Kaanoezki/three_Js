@@ -22,6 +22,7 @@
    
     <div id="layer1" class="layer">Inhalt für Layer 1</div>
     <div id="layer2" class="layer outliner">Inhalt für Layer 2</div>
+    <div id="layer3" class="layer outliner">Inhalt für Layer 3</div>
     <div id="threejs-container" onclick="onClick(event)"></div>
     <!--navbar-->
     <nav>
@@ -43,6 +44,7 @@
 
     <!--internal scripts-->
     <script src="sceneObjects.js"></script>
+    
     <script type="module">
         // scene 
         var scene, camera, renderer;
@@ -90,7 +92,7 @@
             zoom: 4
         };
         const rotationSettings = {
-        rotationY: 2.5,
+        rotationY: 2.8,
         rotationX: 1,
   
         };
@@ -170,15 +172,12 @@ updateRotation();
             );
         }
         function light() {
-    // Annahme: Directional Light wurde bereits erstellt und zur Szene hinzugefügt
+   
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
     directionalLight.position.set(1, 5, 0).normalize();
     scene.add(directionalLight);
-
-    // DirectionalLightHelper zeigt die Richtung des Lichts an
-    const lightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
-    scene.add(lightHelper);
-
+    // const lightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
+    // scene.add(lightHelper);
     const ambientLight = new THREE.AmbientLight(0xffffff); // Farbe und Intensität
     ambientLight.intensity = 1; // Hier die Intensität anpassen (zwischen 0 und 1)
     ambientLight.position.set(1, 5, 0);     

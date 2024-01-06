@@ -35,7 +35,6 @@ canvas {
 }
 /*color harmony: #fff562, #62fff5, #f562ff */
 #layer2 {
-    
     width: 20vw;
     height: 20vh;
     border-radius: 50%;
@@ -46,6 +45,15 @@ canvas {
     left: 50%;
     transform: translate(-50%, -50%);
     animation: waveAnimation 5s infinite linear;
+}
+#layer3 {
+    position:fixed;
+    margin-left:25vw;
+    margin-top:25vh;
+    width: 50vw;
+    height: 50vh;
+    background-color: #007bff;
+    z-index: -4;
 }
 
 @keyframes waveAnimation {

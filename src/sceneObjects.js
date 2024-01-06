@@ -1,20 +1,16 @@
+function addOutlineToObject(object, creaseAngle = 80) {
 
-function addOutlineToObject(object) {
-    // Erstelle EdgesGeometry für die Kanten
-    const edges = new THREE.EdgesGeometry(object.geometry);
-
-    // Erstelle LineSegments mit LineBasicMaterial für die Kanten
-    const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000 }));
-
-    // Kopiere die Position, Skalierung und Rotation des Originalobjekts
+    // Erstelle EdgesGeometry für die Kanten mit CreaseAngle, löscht sozusagen kurven 
+    const edges = new THREE.EdgesGeometry(object.geometry, creaseAngle);
+    const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff}));
     line.position.copy(object.position);
     line.scale.copy(object.scale);
     line.rotation.copy(object.rotation);
-    line.scale.multiplyScalar(1.001);
-
+    line.scale.multiplyScalar(1.002);
     // Füge die Linie zur Szene hinzu
     scene.add(line);
 }
+
     function loadRoom() {
         const loader = new THREE.GLTFLoader();
         loader.load('../assets/objects/room.glb', (gltf) => {
