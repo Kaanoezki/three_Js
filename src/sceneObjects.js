@@ -1,15 +1,16 @@
-function addOutlineToObject(object, creaseAngle = 80) {
+    // outline wihtout extern
+    function addOutlineToObject(object, creaseAngle = 80) {
 
-    // Erstelle EdgesGeometry für die Kanten mit CreaseAngle, löscht sozusagen kurven 
-    const edges = new THREE.EdgesGeometry(object.geometry, creaseAngle);
-    const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff}));
-    line.position.copy(object.position);
-    line.scale.copy(object.scale);
-    line.rotation.copy(object.rotation);
-    line.scale.multiplyScalar(1.002);
-    // Füge die Linie zur Szene hinzu
-    scene.add(line);
-}
+        // Erstelle EdgesGeometry für die Kanten mit CreaseAngle, löscht sozusagen kurven 
+        const edges = new THREE.EdgesGeometry(object.geometry, creaseAngle);
+        const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff}));
+        line.position.copy(object.position);
+        line.scale.copy(object.scale);
+        line.rotation.copy(object.rotation);
+        line.scale.multiplyScalar(1.002);
+        // Füge die Linie zur Szene hinzu
+        scene.add(line);
+    }
 
     function loadRoom() {
         const loader = new THREE.GLTFLoader();
@@ -61,10 +62,10 @@ function addOutlineToObject(object, creaseAngle = 80) {
     }
     
     function initObjects() {
-        const layer2 = document.getElementById('layer2');
-        layer2.style.height = window.innerHeight / 2 + 'px';
-        layer2.style.width = window.innerWidth / 2 + 'px';
-        layer2.style.transform = `translate(${window.innerWidth / 4}px, ${window.innerHeight / 4}px)`;
+        const layer2 = document.getElementById('layer1');
+        layer2.style.height = window.innerHeight / 200 + 'px';
+        layer2.style.width = window.innerWidth / 200 + 'px';
+        layer2.style.transform = `translate(${window.innerWidth / 1}px, ${window.innerHeight / 1}px)`;
 
         light();
         loadRoom();

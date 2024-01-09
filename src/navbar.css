@@ -1,11 +1,12 @@
 .navbar {
   font-family: 'Roboto Slab', sans-serif;
-  position: relative;
+  position: fixed;
   top:31.4%;
   width: 10%;
   height: 20%;
   z-index: 1000;
   background-color: rgba(255, 228, 196, 0.493);
+  position: fixed;
  
   border-style: solid;
   border-color: white;
@@ -22,7 +23,7 @@
   width: 15%;
   height: 20vh;
   margin-top: 25vh;
-  position:relative;
+  position:fixed;
   transform: translateX(-75%);
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -147,10 +148,7 @@
 }
 
 @media (min-width: 601px) {
-  #layer1 {
-    background-color: #ffcc00;
-    transition: all 2s cubic-bezier(0.075, 0.81, 0.165, 1);
-  }
+ 
   .navbar .a,
   .navbar .b,
   .navbar .c,
@@ -165,9 +163,7 @@
   }
 
   @media (min-width: 601px) and (max-width: 900px) {
-    #layer1 {
-      background-color: #00ff37;
-    }
+  
     .navbar .a,
     .navbar .b,
     .navbar .c,

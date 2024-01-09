@@ -17,13 +17,18 @@
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
 </head>
+
 <body>
   
-   
-    <div id="layer1" class="layer">Inhalt für Layer 1</div>
-    <div id="layer2" class="layer outliner">Inhalt für Layer 2</div>
-    <div id="layer3" class="layer outliner">Inhalt für Layer 3</div>
     <div id="threejs-container" onclick="onClick(event)"></div>
+    <div id="layer1" class="layer">main</div>
+    <div id="uneven" class="layer">Inhalt für Layer 1</div>
+    <div id="even" class="layer ">Inhalt für Layer 2</div>
+    <div id="uneven" class="layer ">Inhalt für Layer 3</div>
+    <div id="even" class="layer ">Inhalt für Layer 4</div>
+    
+ 
+   
     <!--navbar-->
     <nav>
         <ul class="navbar container">
@@ -154,8 +159,8 @@ updateRotation();
         }
 
         document.addEventListener('wheel', function (event) {
-            var layer2 = document.getElementById('layer2');
-            if (!isElementInViewport(layer2)) {
+            var layer1 = document.getElementById('layer1');
+            if (!isElementInViewport(layer1)) {
                 event.preventDefault();
                 zoomCamera(event.deltaY * -0.05);
             }
@@ -317,7 +322,7 @@ updateRotation();
            var layer1 = document.getElementById('layer1');
        
            if (screenWidth <= 600) {
-               layer1.innerText = 'If you dont use a smaller Device, please change the window-size for a better experience !';
+               (layer1).innerText   = 'If you dont use a smaller Device, please change the window-size for a better experience !';
            } else {
                layer1.innerText = 'Inhalt für Layer 1';
            }
