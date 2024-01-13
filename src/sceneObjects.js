@@ -1,9 +1,10 @@
+    
     // outline wihtout extern
     function addOutlineToObject(object, creaseAngle = 80) {
 
         // Erstelle EdgesGeometry für die Kanten mit CreaseAngle, löscht sozusagen kurven 
         const edges = new THREE.EdgesGeometry(object.geometry, creaseAngle);
-        const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff}));
+        const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000}));
         line.position.copy(object.position);
         line.scale.copy(object.scale);
         line.rotation.copy(object.rotation);
@@ -37,7 +38,7 @@
                         side: THREE.DoubleSide,
                         // Füge hier andere Einstellungen hinzu
                     });
-    
+                   
                     // Weise das neue Material dem Mesh zu
                     child.material = newMaterial;
     
@@ -48,8 +49,10 @@
     
             roomObj = new objectSpwn(gltf.scene, setPosition, setScale);
         });
+       
+
     }
-    
+
     class objectSpwn {
         constructor(initObj, setPosition, setScale) {
             this.initObj = initObj;
@@ -63,14 +66,13 @@
     
     function initObjects() {
         const layer2 = document.getElementById('layer1');
-        layer2.style.height = window.innerHeight / 200 + 'px';
-        layer2.style.width = window.innerWidth / 200 + 'px';
+        layer2.style.height = window.innerHeight / 900 + 'px';
+        layer2.style.width = window.innerWidth / 900 + 'px';
         layer2.style.transform = `translate(${window.innerWidth / 1}px, ${window.innerHeight / 1}px)`;
 
         light();
         loadRoom();
+   
         console.log('Objects initialized');
 
     }
-
-
