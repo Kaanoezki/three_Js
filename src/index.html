@@ -16,40 +16,193 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var container = document.getElementById("container");
+            var images = document.querySelectorAll(".img-container");
+
+            var currentIndex = 0;
+
+            // Eventlistener für das Mausrad hinzufügen
+            container.addEventListener("wheel", function(event) {
+                // Scrolle nur beim Scrollen nach unten (wheelDelta > 0)
+                if (event.deltaY > 0) {
+                    // Gehe zum nächsten Bild oder zum Anfang, wenn das letzte erreicht ist
+                    currentIndex = (currentIndex + 1) % images.length;
+                } else {
+                    // Gehe zum vorherigen Bild oder zum Ende, wenn am Anfang
+                    currentIndex = (currentIndex - 1 + images.length) % images.length;
+                }
+
+                // Scrolle zum ausgewählten Bild
+                images[currentIndex].scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
 </head>
 
 <body>
     <!-- testcontainer -->
-    <!-- <div id="scene-container2">scene 2 container</div> -->
-    <div id="threejs-container" onclick="onClick(event)"></div>
-    <div id="layer1" class="layer">main</div>
-    <div id="uneven" class="layer ">Inhalt für Layer 1</div>
     
-    <div id="even" class="layer trapezoid ">
-        <div class="invisble a">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>   
-         <div  class="invisble b">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
-         <div class="invisble c">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>   
-         <div  class="invisble d">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
-         <div  class="text-container e">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?</div>
-         <div  class="invisble f">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
-         <div  class="invisble g">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
-         <div  class="invisble h">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
-         <div  class="invisble i">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
+    <div id="scene-container2">scene 2 container</div>
+   <div id="threejs-container" onclick="onClick(event)"></div>
+    <div id="layer1" class="layer ">main</div> 
+    <div id="uneven" class="layer  blur img-container img3 scroll-section">Inhalt für Layer 1</div>
+    <div id="container">
+        <div id="even" >
+                <div class="img-container  img2">
+                </div>
+            <div class=" text-container-1 ">
+            But I must explain to you how all 
+            this mistaken idea of denouncing pleasure and praising pain 
+            was born and I will give you a complete account of the system,
+            and expound the actual teachings of the great explorer of the 
+            truth, the master-builder of human happiness. No one rejects, 
+            dislikes, or avoids pleasure itself, because it is pleasure,
+            but because those who do not know how to pursue pleasure
+            rationally encounter consequences that are extremely painful.
+            Nor again is there anyone who loves or pursues or desires to
+            obtain pain of itself, because it is pain, but because 
+            occasionally circumstances occur in which toil and pain
+            can procure him some great pleasure. To take a trivial 
+            example, which of us ever undertakes laborious physical 
+            exercise, except to obtain some advantage from it? But who 
+            has any right to find fault with a man who chooses to enjoy a
+            pleasure that has no annoying consequences, or one who avoids 
+            a pain that produces no resultant pleasure?
         </div>
-                        
-    <div id="uneven" class="layer aa ">Inhalt für Layer 3</div>
-    <div id="even" class="layer trapezoid-inverse">
-        <div class="invisble a">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>   
-         <div  class="invisble b">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
-         <div class="invisble c">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>   
-         <div  class="invisble d">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
-         <div  class="text-container e">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?</div>
-         <div  class="invisble f">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
-         <div  class="invisble g">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
-         <div  class="invisble h">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
-         <div  class="invisble i">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</div>
+            <div class=" text-container-1">
+                But I must explain to you how all 
+                this mistaken idea of denouncing pleasure and praising pain 
+                was born and I will give you a complete account of the system,
+                and expound the actual teachings of the great explorer of the 
+                truth, the master-builder of human happiness. No one rejects, 
+                dislikes, or avoids pleasure itself, because it is pleasure,
+                but because those who do not know how to pursue pleasure
+                rationally encounter consequences that are extremely painful.
+                Nor again is there anyone who loves or pursues or desires to
+                obtain pain of itself, because it is pain, but because 
+                occasionally circumstances occur in which toil and pain
+                can procure him some great pleasure. To take a trivial 
+                example, which of us ever undertakes laborious physical 
+                exercise, except to obtain some advantage from it? But who 
+                has any right to find fault with a man who chooses to enjoy a
+                pleasure that has no annoying consequences, or one who avoids 
+                a pain that produces no resultant pleasure?
+                </div>
+                <div class=" text-container-1">
+                    But I must explain to you how all 
+                    this mistaken idea of denouncing pleasure and praising pain 
+                    was born and I will give you a complete account of the system,
+                    and expound the actual teachings of the great explorer of the 
+                    truth, the master-builder of human happiness. No one rejects, 
+                    dislikes, or avoids pleasure itself, because it is pleasure,
+                    but because those who do not know how to pursue pleasure
+                    rationally encounter consequences that are extremely painful.
+                    Nor again is there anyone who loves or pursues or desires to
+                    obtain pain of itself, because it is pain, but because 
+                    occasionally circumstances occur in which toil and pain
+                    can procure him some great pleasure. To take a trivial 
+                    example, which of us ever undertakes laborious physical 
+                    exercise, except to obtain some advantage from it? But who 
+                    has any right to find fault with a man who chooses to enjoy a
+                    pleasure that has no annoying consequences, or one who avoids 
+                    a pain that produces no resultant pleasure?
+                    </div>
+        
         </div>
-   
+    </div>
+    <div id="container-tilted">
+        <div id="even">
+                <div class="img-container img2">
+                </div>
+            <div class=" text-container-1 ">
+            But I must explain to you how all 
+            this mistaken idea of denouncing pleasure and praising pain 
+            was born and I will give you a complete account of the system,
+            and expound the actual teachings of the great explorer of the 
+            truth, the master-builder of human happiness. No one rejects, 
+            dislikes, or avoids pleasure itself, because it is pleasure,
+            but because those who do not know how to pursue pleasure
+            rationally encounter consequences that are extremely painful.
+            Nor again is there anyone who loves or pursues or desires to
+            obtain pain of itself, because it is pain, but because 
+            occasionally circumstances occur in which toil and pain
+            can procure him some great pleasure. To take a trivial 
+            example, which of us ever undertakes laborious physical 
+            exercise, except to obtain some advantage from it? But who 
+            has any right to find fault with a man who chooses to enjoy a
+            pleasure that has no annoying consequences, or one who avoids 
+            a pain that produces no resultant pleasure?
+        </div>
+            <div class=" text-container-1">
+                But I must explain to you how all 
+                this mistaken idea of denouncing pleasure and praising pain 
+                was born and I will give you a complete account of the system,
+                and expound the actual teachings of the great explorer of the 
+                truth, the master-builder of human happiness. No one rejects, 
+                dislikes, or avoids pleasure itself, because it is pleasure,
+                but because those who do not know how to pursue pleasure
+                rationally encounter consequences that are extremely painful.
+                Nor again is there anyone who loves or pursues or desires to
+                obtain pain of itself, because it is pain, but because 
+                occasionally circumstances occur in which toil and pain
+                can procure him some great pleasure. To take a trivial 
+                example, which of us ever undertakes laborious physical 
+                exercise, except to obtain some advantage from it? But who 
+                has any right to find fault with a man who chooses to enjoy a
+                pleasure that has no annoying consequences, or one who avoids 
+                a pain that produces no resultant pleasure?
+                </div>
+                <div class=" text-container-1">
+                    But I must explain to you how all 
+                    this mistaken idea of denouncing pleasure and praising pain 
+                    was born and I will give you a complete account of the system,
+                    and expound the actual teachings of the great explorer of the 
+                    truth, the master-builder of human happiness. No one rejects, 
+                    dislikes, or avoids pleasure itself, because it is pleasure,
+                    but because those who do not know how to pursue pleasure
+                    rationally encounter consequences that are extremely painful.
+                    Nor again is there anyone who loves or pursues or desires to
+                    obtain pain of itself, because it is pain, but because 
+                    occasionally circumstances occur in which toil and pain
+                    can procure him some great pleasure. To take a trivial 
+                    example, which of us ever undertakes laborious physical 
+                    exercise, except to obtain some advantage from it? But who 
+                    has any right to find fault with a man who chooses to enjoy a
+                    pleasure that has no annoying consequences, or one who avoids 
+                    a pain that produces no resultant pleasure?
+                    </div>
+        
+        </div>
+    </div>
+    <div id="container-tilted-right">
+        <div id="even" >
+            <div class=" img1"></div>
+            <div class=" text-container-1">
+                But I must explain to you how all 
+                this mistaken idea of denouncing pleasure and praising pain 
+                was born and I will give you a complete account of the system,
+                and expound the actual teachings of the great explorer of the 
+                truth, the master-builder of human happiness. No one rejects, 
+                dislikes, or avoids pleasure itself, because it is pleasure,
+                but because those who do not know how to pursue pleasure
+                rationally encounter consequences that are extremely painful.
+                Nor again is there anyone who loves or pursues or desires to
+                obtain pain of itself, because it is pain, but because 
+                occasionally circumstances occur in which toil and pain
+                can procure him some great pleasure. To take a trivial 
+                example, which of us ever undertakes laborious physical 
+                exercise, except to obtain some advantage from it? But who 
+                has any right to find fault with a man who chooses to enjoy a
+                pleasure that has no annoying consequences, or one who avoids 
+                a pain that produces no resultant pleasure?
+                </div>
+        </div>
+    </div>
+
+         
+      
     <!--navbar-->
     <nav>
         <nav class="textresizer">
@@ -67,7 +220,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
-
     <!-- <script src="https://unpkg.com/three@0.126.0/examples/js/postprocessing/EffectComposer.js"></script> -->
     <!--outliner script-->
 
@@ -77,7 +229,7 @@
     <script type="module">
         // scene 
         var scene, camera, renderer;
-        var scene1, camera2, renderer2;
+        // var scene1, camera2, renderer2;
     </script>
 
     <script>
@@ -92,8 +244,8 @@
                 return;
             }
             //camera
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(0, 5, 5);
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.set(0, 5,20);
             camera.lookAt(0, -0, 0);
 
             renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -119,7 +271,7 @@
         }
         gui = new dat.GUI();
         const zoomSettings = {
-            zoom: 4
+            zoom: 2
         };
         const rotationSettings = {
         rotationY: 2.8,
@@ -130,7 +282,7 @@
         const targetPosition = new THREE.Vector3(0, 0, 0);
         function zoomCamera() {
         const newZoom = zoomSettings.zoom;
-        const initialDistance = 50; 
+        const initialDistance = 100; 
         const newDistance = initialDistance / newZoom;
         const direction = new THREE.Vector3().subVectors(camera.position, targetPosition).normalize();
         // Berechne die neue Position der Kamera
@@ -139,7 +291,7 @@
         camera.position.copy(newPosition);
         camera.lookAt(targetPosition);
         camera.updateProjectionMatrix();
-        
+         
     }
 gui.add(rotationSettings, 'rotationY', 0, Math.PI * 2).onChange(updateRotation);
 gui.add(rotationSettings, 'rotationX', 0, Math.PI * 2).onChange(updateRotation);
@@ -187,10 +339,12 @@ updateRotation();
             var layer1 = document.getElementById('layer1');
             if (!isElementInViewport(layer1)) {
                 event.preventDefault();
-                zoomCamera(event.deltaY * -0.05);
+                // zoomCamera(event.deltaY * -0.05);
+                
             }
+        
         });
-
+            
         function isElementInViewport(el) {
             var rect = el.getBoundingClientRect();
 
@@ -230,7 +384,7 @@ updateRotation();
         camera.add(spotLight);
 
         const ambientLightSpot = new THREE.AmbientLight(0xffffff); // Farbe und Intensität
-        ambientLightSpot.intensity = 4; // Hier die Intensität anpassen (zwischen 0 und 1)
+        ambientLightSpot.intensity = 1; // Hier die Intensität anpassen (zwischen 0 und 1)
         camera.add(ambientLightSpot);
 
     function animateLightFollowCamera() {
@@ -238,7 +392,7 @@ updateRotation();
         ambientLight.position.copy(camera.position);
         ambientLightSpot.position.copy(camera.position);
 
-        // Aktualisiere Spot-Lichtposition und Zielposition auf den Ursprung
+        // Spot-Lichtposition und Zielposition auf den Ursprung
         const target = new THREE.Vector3(0, 3, 0);
         spotLight.position.copy(camera.position);
         spotLight.target.position.copy(target);
@@ -246,32 +400,6 @@ updateRotation();
 
     animateLightFollowCamera();
 }
-        function loadBlueprint() {
-            const loader = new THREE.GLTFLoader();
-            loader.load('../assets/objects/turntable.glb', (gltf) => {
-                // const setPosition = new THREE.Vector3(-0.5625 , -0.2375 , 0);
-                const setPosition = new THREE.Vector3(1 , 1, 0);
-                const setScale = new THREE.Vector3(1.2, 1, 1.2);
-
-                gltf.scene.traverse((child) => {
-            if (child.isMesh) {
-                // Erstellen Sie ein MeshStandardMaterial ohne Texturen
-                const material = new THREE.MeshStandardMaterial({
-                    color: 0x00FFFF,  // Farbe des Materials
-                    metalness: 0.1,     // Setzen Sie die Metallheit auf 1 für ein metallisches Material
-                    roughness: 0.1,   // Optional: Passen Sie die Rauheit an
-                    flatShading: true,
-                });
-
-                child.material = material;
-            }
-        });
-
-                const blueprint = new objectSpwn(gltf.scene, setPosition, setScale);
-            });
-        }
-      
-        
         // css update/ lerp effect
         document.addEventListener('DOMContentLoaded', function () {
         document.addEventListener('mousemove', (event) => {
@@ -326,55 +454,30 @@ updateRotation();
         // mouseclick effect
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
-        // raycast obj is clicked
+
         function onObjectClick(event, gltfScene) {
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(gltfScene.children, true);
+
             if (intersects.length > 0) {
                 const clickedObject = intersects[0].object;
 
                 if (clickedObject.isMesh) {
-                    // Direkt die Farbe ändern
-                    if (clickedObject.isMesh && clickedObject === 'laptop') {
-                        clickedObject.material.color.set(0x00ff00);  // Setze die Farbe auf Grün
-                        console.log('Mesh exists');
-                    }
+                    clickedObject.material.color.set(0x00ff00);  // Setze die Farbe auf Grün
+                    console.log('Mesh exists');
                 }
-                console.log('clickedObject.name:', clickedObject.name);
-                console.log('layer1 background color:', document.getElementById('layer1').style.backgroundColor);
-            // Ändere den Hintergrund nur, wenn das geklickte Objekt den Namen 'enter name' hat
-            if (clickedObject.name === 'room' ) {
-                document.getElementById('layer1').style.backgroundColor = 'green';
-                document.getElementById('layer2').style.display = 'none';
-                
-                    }
-                }
-            }   
-        function onClick(event) {
-            onObjectClick(event, roomObj.initObj);
+            }
         }
-        document.getElementById('threejs-container').addEventListener('click', onClick, false);
-        windowResize();
-        initObjects();
+                function onClick(event) {
+                    onObjectClick(event, roomObj.initObj);
+                }
+                document.getElementById('threejs-container').addEventListener('click', onClick, false);
+                windowResize();
+                initObjects();
 
-        //hover 
-        document.addEventListener('DOMContentLoaded', function () {
-    const textContainerE = document.querySelector('.text-container.e');
-
-    textContainerE.addEventListener('mouseenter', function () {
-        textContainerE.style.fontFamily = 'sans-serif';
-        textContainerE.style.fontSize = '50px';
-        textContainerE.style.color = 'red';
-    });
-
-    textContainerE.addEventListener('mouseleave', function () {
-        textContainerE.style.fontFamily = '';
-        textContainerE.style.fontSize = '1.5vw';
-        textContainerE.style.color = '';
-    });
-});
+    
 
 
         
