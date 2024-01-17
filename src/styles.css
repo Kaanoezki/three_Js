@@ -1,18 +1,81 @@
 /*color harmony: #fff562, #62fff5, #f562ff */
+/* mistyrose 	#ffe4e1
+ 	lightcyan 	#e0ffff
+ 	moccasin 	#ffe4b5
+*/
+#threejs-container {
+    position: relative;
+    z-index: 0; /* Stellen Sie sicher, dass der Three.js-Container unter dem Overlay liegt */
+}
+#overlay-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+   
+    z-index: 10; /* Stellen Sie sicher, dass das Overlay über dem Three.js-Container liegt */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 html {
   
    
     overflow-x:hidden;
 }
+#container {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh; /* Setzen Sie die Höhe nach Bedarf */
+  }
 body  
 {
-   
+   background-color: #000;
      overflow-y: hidden; /* Verbirgt die vertikale Scroll-Leiste */
      overflow-x: hidden;
     margin: 0;
     
 
 }
+.fullscreen {
+    height: 100vh; /* 100% der Bildschirmhöhe */
+}
+.parallax {
+    position: fixed;
+    z-index: -500;
+    transform: translate(-50%, -50%);
+}
+
+/* Unterklasse für Objekteigenschaften */
+.background1 {
+    border-color: white;
+    width: 5%;
+    height: 100vh;
+    background-color: black;
+    top: -10%;
+    left: 50%;
+}
+
+.background2 {
+    top: -100%;
+    left: 12%;
+    border-color: red;
+    width: 5%;
+    height: 115vh;
+    background-color: blue;
+    
+}
+.background3 {
+    top: 50%;
+    left: 80%;
+    border-color: red;
+    width: 5%;
+    height: 115vh;
+    background-color: blue;
+    
+}
+
 
 .parent {
     overflow: scroll;
@@ -28,40 +91,38 @@ body
 
 #container{
     
-    display: flex;
-    position: relative;
-    height: 100vh;
-    margin-left: 2em;
-
-
+    background-color:#ffe4b5;
 }
-#container-tilted {
-    display: flex;
-    position: relative;
-    height: 100vh;
-    margin-left: 2em;
-    width: 130%; /* Positive Breite */
-    transform: perspective(1500px) rotateY(30deg);
-    background-color: yellow;
-    margin-top: 20%;
-
-    
-}
-
-#container-tilted-right {
-    display: flex;
-    position: relative;
-    height: 100vh;
-    margin-left: 2em;
-   
-    transform: perspective(1500px) rotateY(-30deg);
-    background-color: #62fff5;
-   
-    margin-top: 5%;
-    margin-inline: 5cm;
+.headliner{
+font-family: 'Roboto Slab', sans-serif;
+font-size: 20vh;
+color: transparent; /* Der Text wird transparent gemacht */
+-webkit-text-stroke: 1px #000; /* Hier wird der Umriss erstellt */
+text-stroke: 1px #000;
 }
 
 
+#containerbox {
+    object-fit: cover;
+    display: flex;
+    position: relative;
+    transform: none;
+    /* transform: perspective(1500px) rotateY(-30deg); */
+    background-color: #ffe4b5;
+    margin-left: auto; /* Zentrierung auf der horizontalen Achse */
+    margin-right: auto;
+    justify-content: stretch;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 100vh;
+    transition: 1s ease-in-out;
+    margin: 5%;
+    z-index: 1;
+    border-radius: 2cm;
+    border-color: bisque;
+}
 
 canvas {
    
@@ -89,24 +150,17 @@ canvas {
     background-color: white;
     transform: translateX(50%); 
     transform: translatey(50%); 
+   
 }
 #uneven {
     border-color: white;
+    height: 100vh;
 }
 
-#even {
-    display: flex;
-    flex-direction: column; 
-    border-style: solid;
-    background-position: center;
-    border-color: aliceblue;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 20px;
- 
-}
+
 .transformer-inverse {
-    background-color: #62fff5;
+    
+    background-color: #ffe4b5;
     transform: perspective(700px) rotateY(-30deg);
     transition: transform 0.3s ease;
     padding: 0;
@@ -117,61 +171,83 @@ canvas {
 .text-container-1{
     display: flex;
     align-items: center;
-    display: inline-block;
     font-size: 1.5vw;
-    transition: font-size 1s ease;
     border-color: aliceblue;
+    transition: font-size 1s ease-in-out;
    
-  
 }
-
+.text-container-1:hover {
+    text-shadow: 1px 1px 4px rgb(255, 255, 255);
+    font-size: 1.51vw;
+}
+.text-container-2{
+    display: flex;
+    align-items: center;
+    font-size: 5vw;
+    border-color: aliceblue;
+    transition: font-size 1s ease-in-out;
+   
+}
+.text-container-2:hover {
+    text-shadow: 1px 1px 4px rgb(255, 255, 255);
+    font-size: 5.1vw;
+}
 .invisble{
     visibility: hidden;
 }
 
-.text-container-1:hover {
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-}
+
 
 .hidden{
     visibility: hidden;
 }
 .blur {
-    /* position: relative;
-    background-size: cover;
-    background-position: center;
-    height: 100vh; */
-    z-index: -30;
+    filter: blur(10px);
+ 
 }
 .img1 {
     background-image: url('../assets/bilder/room2.jpg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    transform: translateX(30%);
-    width: 50%;
-    height: 50%;
+    width: 100%;
+    height: 100%;
+    margin: 5%;
+    transition: 1s ease-in-out;
 }
 .img1:hover{
-
-
-    transition: transform 4s ease-in-out;
+    height: 105%;
 }
 .img2{
     background-image: url('../assets/bilder/assetPlacerTool.jpg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    transform: translateX(-30%);
     width: 50%;
     height: 50%;
-
+    transition: 1s ease-in-out;
+    margin: 5%;
+    z-index: 1
 }
+.img2:hover{
+    height: 55%;
+    transform: translateY(-10%);
+    filter:brightness(1.5);
+    
+}
+
+
 .img3{
-    /* background-image: url('../assets/bilder/other/tree.jpeg'); */
+    background-image: url('../assets/bilder/other/tree.jpeg');
     background-color: rgba(255, 255, 255, 0.7);
-    object-fit:contain;
-    border-radius: 50%; 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 100%;
+    transition: 1s ease-in-out;
+    margin: 5%;
+    z-index: 1
 }
 .footer {
     text-align: center; 
@@ -179,29 +255,33 @@ canvas {
     color: white; 
     padding: 10px; 
 }
-
-  .blur::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0; 
-    width: 100%;
-    height: 100%; 
-    background-image: inherit;
- 
-    background-position: inherit; 
-    filter: blur(0px);
-    z-index: -1; 
-    
+       
+.disappearing-div {
+    width: 200px;
+    height: 200px;
+    background-color: lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 1s ease-in-out;
 }
+
+.disappearing-div.disappeared {
+    opacity: 0;
+    pointer-events: none; /* Deaktiviert Klicks, wenn das Div verschwunden ist */
+}
+
+ 
 
 /*@media*/
 /*smaller dives*/
 
 @media (max-width: 600px) {
+ 
     .layer1{
         background-color: red; 
-   
+        
         transition: all 5s cubic-bezier(0.075, 0.81, 0.165, 1);
     }
     .navbar .a,
@@ -212,7 +292,7 @@ canvas {
     }
     .v { grid-area: v;
         writing-mode: vertical-rl;
-        font-family: 'Roboto Slab', sans-serif;
+        
         font-size: large;
         background-position: center;
         display: flex;
@@ -236,9 +316,6 @@ canvas {
  
     @media screen and (max-height: 51%) {
         .trapezoid {
-          
             transform: none;
         }
-      
-           
     }

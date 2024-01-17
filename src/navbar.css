@@ -1,7 +1,8 @@
 .navbar {
+  filter:opacity(0.8);
   font-family: 'Roboto Slab', sans-serif;
   position: fixed;
-  top:31.4%;
+  top:15%;
   width: 10%;
   height: 20%;
   z-index: 1000;
@@ -61,6 +62,7 @@
 
 .navbar:hover{
   transform: translateX(0);
+  filter: opacity(1);
 }
 .navbar li{
   position: relative;
@@ -69,6 +71,7 @@
   border-bottom: 1px solid #ffffff;
 }
  .navbar li:hover{
+  
   display: flex;
   position: relative;
   color: #ffee10;
@@ -96,7 +99,6 @@
 
   }
   50% {
-    
     text-shadow: 0 0 10px purple;
     background-color:  #ffffff;
     
@@ -121,9 +123,7 @@
   .v {
     font-size: xx-small;
     z-index: 1;
-    
   }
-
   .navbar .a:hover,
   .navbar .b:hover,
   .navbar .c:hover,
@@ -135,7 +135,6 @@
     text-shadow: 0 0 5px red;
     transition: all 1s cubic-bezier(0.075, 0.81, 0.165, 1);
   }
-
   .navbar li:hover {
     background-color: green;
     color: red;
@@ -146,9 +145,7 @@
     padding-right: 0;
   }
 }
-
 @media (min-width: 601px) {
- 
   .navbar .a,
   .navbar .b,
   .navbar .c,
@@ -161,17 +158,13 @@
   .navbar li:hover {
     font-size: medium; 
   }
-
   @media (min-width: 601px) and (max-width: 900px) {
-  
     .navbar .a,
     .navbar .b,
     .navbar .c,
     .navbar .d {
       font-size: x-small; 
-    
     }
-
     .navbar li:hover {
       font-size: small; 
     }
