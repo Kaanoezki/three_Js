@@ -3,9 +3,15 @@
  	lightcyan 	#e0ffff
  	moccasin 	#ffe4b5
 */
+#tag a{
+    /* scroll tag */
+    scroll-snap-align: start;
+
+}
+
 #threejs-container {
     position: relative;
-    z-index: 0; /* Stellen Sie sicher, dass der Three.js-Container unter dem Overlay liegt */
+    z-index: 10; /* Stellen Sie sicher, dass der Three.js-Container unter dem Overlay liegt */
 }
 #overlay-container {
     position: absolute;
@@ -13,28 +19,34 @@
     left: 0;
     width: 100%;
     height: 100%;
-   
-    z-index: 10; /* Stellen Sie sicher, dass das Overlay über dem Three.js-Container liegt */
+    font-family: Titillium Web;
+ 
+    z-index: 50; /* Stellen Sie sicher, dass das Overlay über dem Three.js-Container liegt */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 html {
   
-   
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
     overflow-x:hidden;
 }
 #container {
     scroll-snap-type: y mandatory;
     overflow-y: scroll;
-    height: 100vh; /* Setzen Sie die Höhe nach Bedarf */
-  }
+    height: 100vh;
+    padding: 0;
+}
 body  
 {
    background-color: #000;
-     overflow-y: hidden; /* Verbirgt die vertikale Scroll-Leiste */
+     overflow-y: hidden; 
      overflow-x: hidden;
+     height: 100%;
     margin: 0;
+    overflow: hidden;
     
 
 }
@@ -90,7 +102,8 @@ body
   }
 
 #container{
-    
+    overflow-y: hidden; 
+    overflow-x: hidden;
     background-color:#ffe4b5;
 }
 .headliner{
@@ -98,7 +111,7 @@ font-family: 'Roboto Slab', sans-serif;
 font-size: 20vh;
 color: transparent; /* Der Text wird transparent gemacht */
 -webkit-text-stroke: 1px #000; /* Hier wird der Umriss erstellt */
-text-stroke: 1px #000;
+
 }
 
 
@@ -108,7 +121,7 @@ text-stroke: 1px #000;
     position: relative;
     transform: none;
     /* transform: perspective(1500px) rotateY(-30deg); */
-    background-color: #ffe4b5;
+
     margin-left: auto; /* Zentrierung auf der horizontalen Achse */
     margin-right: auto;
     justify-content: stretch;
@@ -121,7 +134,7 @@ text-stroke: 1px #000;
     margin: 5%;
     z-index: 1;
     border-radius: 2cm;
-    border-color: bisque;
+   
 }
 
 canvas {
@@ -147,7 +160,7 @@ canvas {
 
 #layer1{
     
-    background-color: white;
+    
     transform: translateX(50%); 
     transform: translatey(50%); 
    
@@ -174,6 +187,7 @@ canvas {
     font-size: 1.5vw;
     border-color: aliceblue;
     transition: font-size 1s ease-in-out;
+    float:bottom;
    
 }
 .text-container-1:hover {
@@ -185,12 +199,12 @@ canvas {
     align-items: center;
     font-size: 5vw;
     border-color: aliceblue;
-    transition: font-size 1s ease-in-out;
-   
+    
+    margin:5px;
 }
 .text-container-2:hover {
     text-shadow: 1px 1px 4px rgb(255, 255, 255);
-    font-size: 5.1vw;
+    font-size: 5.05vw;
 }
 .invisble{
     visibility: hidden;
@@ -214,6 +228,7 @@ canvas {
     height: 100%;
     margin: 5%;
     transition: 1s ease-in-out;
+    float: right;
 }
 .img1:hover{
     height: 105%;
@@ -230,9 +245,9 @@ canvas {
     z-index: 1
 }
 .img2:hover{
-    height: 55%;
-    transform: translateY(-10%);
-    filter:brightness(1.5);
+    height: 51%;
+    transform: translateY(-5%);
+    filter:brightness(1.2);
     
 }
 
