@@ -9,96 +9,91 @@
     <link rel="stylesheet" type="text/css" href="navbar.css">
     <title>Bewerbung</title>
     <!--fonts-->
-    <link href="shttps://fonts.googleapis.com/css2?family=Open+Sans&display=wap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=wap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
-    <!-- snap scroll not smooth yet! -->
-        <!-- ladebalken -->
-      <script>
-        // Simuliere eine Verzögerung von 5 Sekunden
-        setTimeout(function() {
-            document.getElementById("loader-container").style.display = "none";
-        },1000);
-    </script>
-    </script>
-    <!-- div eraser -->
-     <script>
-        function disappearDiv() {
+    <!-- snap scroll not smooth yet! -->    
+    <script>
+    function disappearDiv() {
     var div = document.querySelector('.disappearing-div');
     div.classList.add('disappeared');
     }
     //scroll snapping
     document.addEventListener("DOMContentLoaded", function() {
     console.log("DOMContentLoaded event fired");
-
     const container = document.getElementById("container");
     const images = document.querySelectorAll(".img-container");
     let currentIndex = 0;
-
     // Eventlistener für das Mausrad hinzufügen
     container.addEventListener("wheel", function(event) {
         console.log("Mouse wheel event");
-
         // Berechne den Index des nächsten Bildes
         currentIndex = (currentIndex + (event.deltaY > 0 ? 1 : -1) + images.length) % images.length;
-
         // Scrolle zum ausgewählten Bild mit Smooth-Scrolling
         images[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
-
         // Verhindere das Standard-Scrollverhalten, um Doppelscrollen zu vermeiden
         event.preventDefault();
     }, { passive: false });
     });
-
      </script>
 </head>
 <body>    
- <div id="overlay-container"class="disappearing-div" onclick="disappearDiv(this)"> 
-    <div class=" text-container-2 ">
-    Willkommen auf meiner persönlichen Portfolio-Seite! diese Seite wir wird noch bearbeitet. >>KLICK HIER<< um fortzufahren
-    </div> 
-        <div id="loader-container">
-            <div class="blinkstart text-container-2 ">Scene is loading... 
-                <div id="loader"></div>
-            </div>
+    <div id="overlay-container"class="disappearing-div" onclick="disappearDiv(this)">
+    
+        <div class=" text-container-2 ">
+        Willkommen auf meiner persönlichen Portfolio-Seite! diese Seite wir wird noch bearbeitet. KLICK HIER um fortzufahren
+         </div>
         </div>
     </div>
-<div id="container"><!--scroll snap-->
-    <div id="containerbox">
-        <div id="#tag a">
-        <div id="threejs-container" onclick="onClick(event)">
-            <div id="scene-container2"><!--scene 2 container--></div></div>
+    </div>
+    <div id="container"><!--scroll snap-->
+        <div id="scene-container2"><!--scene 2 container--></div>
+        <div id="threejs-container" onclick="onClick(event)"></div>
         <div id="uneven" class="layer img-container img3 scroll-section"><!--Inhalt für Layer 1--></div>
         <div id="containerbox">
-            <div id="layer1" class="layer"></div> 
+            <div id="layer1" class="layer"></div><!--layer1=three scene --> 
+                <div class="img-container img2"></div>
+                <div class=" text-container-1 headliner">
+                But I must explain to you how all 
+                this mistaken idea of denouncing pleasure and praising pain 
+                was born and I will give you a complete account of the system,
+                and expound the actual teachings of the great explorer of the
+                But I must explain to you how all 
+                this mistaken idea of denouncing pleasure and praising pain 
+                was born and I will give you a complete account of the system,
+                and expound the actual teachings of the great explorer of the  
+            </div>
+        </div>
+        <div id="containerbox">
                 <div class="img-container img2"></div>
                 <div class=" text-container-1 ">
                 But I must explain to you how all 
                 this mistaken idea of denouncing pleasure and praising pain 
                 was born and I will give you a complete account of the system,
-                and expound the actual teachings of the great explorer of the 
             </div>
-            <div id="layer1" class="layer"></div> 
-                <div class="img-container img2"></div>
-                <div class=" text-container-2 ">
+        </div>
+        <div id="containerbox">
+            <div class="img-container img1"></div>
+            <div class=" text-container-1">
                 But I must explain to you how all 
                 this mistaken idea of denouncing pleasure and praising pain 
                 was born and I will give you a complete account of the system,
                 and expound the actual teachings of the great explorer of the 
+                truth, the master-builder of human happiness. No one rejects, 
             </div>
+          
         </div>
-            <div class="parallax blur background1 ">
+        <div class="parallax blur background1 ">
+        </div>
+        <div class="parallax blur background2 ">
+        </div>
+        <div class="parallax blur background3 ">
             </div>
-            <div class="parallax blur background2 ">
-            </div>
-            <div class="parallax blur background3 ">
-            </div>
-         </div>
+
     </div>
-</div>
     <script>
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
@@ -112,11 +107,12 @@
     <nav>
         <nav class="textresizer">
             <ul class="navbar container">
-                <li class="a"><a href="#tag a" onclick="scrollToSection('tag a')">Start</a></li>
+                <li class="a"><a href="#threejs-container" onclick="scrollToSection('threejs-container')">Start</a></li>
                 <li class="b"><a href="#layer1" onclick="scrollToSection('layer1')">about me</a></li>
-                <li class="c"><a href="#containerbox" onclick="scrollToSection('containerbox')">Praktische Erfahrung </a></li>
-                <li class="d"><a href="#containerbox c" onclick="scrollToSection('containerbox c')">Section 3</a></li>
+                <li class="c"><a href="containerbox" onclick="scrollToSection('containerbox')">Praktische Erfahrung </a></li>
+                <li class="d"><a href="#containerbox" onclick="scrollToSection('containerbox')">Section 3</a></li>
                 <a class="v blink">Navigation</a> 
+
                 <!-- <li class="a">Start</li>
                 <li class="b">Bewerbung</li>
                 <li class="c">lebenslauf</li>
@@ -125,12 +121,14 @@
             </ul>
         </nav>
     </nav>
+   
     <!--external sources-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
     <!-- <script src="https://unpkg.com/three@0.126.0/examples/js/postprocessing/EffectComposer.js"></script> -->
     <!--outliner script-->
+
     <!--internal scripts-->
     <script src="sceneObjects.js"></script>
     <script src="logo.js"></script>
@@ -184,7 +182,7 @@
         guiContainer.style.position = 'absolute';
         guiContainer.style.top = '50';
         guiContainer.style.right = '0';
-        guiContainer.style.zIndex = 5;
+        guiContainer.style.zIndex = 5000;
         guiContainer.appendChild(gui.domElement);
         document.getElementById('scene-container2').appendChild(guiContainer);
         const zoomSettings = {
@@ -382,7 +380,7 @@ updateRotation();
                 const clickedObject = intersects[0].object;
 
                 if (clickedObject.isMesh) {
-                    clickedObject.material.color.set(0x00ff00); 
+                    clickedObject.material.color.set(0x00ff00);  // Setze die Farbe auf Grün
                     console.log('Mesh exists');
                 }
             }
@@ -394,6 +392,10 @@ updateRotation();
                 windowResize();
                 initObjects();
 
+    
+
+
+        
     </script>
         <script>//ergänzung für den css textinhalt änderung(innerhtml)
             // Funktion zum Aktualisieren des Textinhalts basierend auf der Bildschirmbreite
@@ -418,4 +420,4 @@ updateRotation();
     </script>
     
 </body>
-</html> 
+</html>

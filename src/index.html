@@ -7,7 +7,6 @@
     <!--css-->
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" type="text/css" href="navbar.css">
-
     <title>Bewerbung</title>
     <!--fonts-->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=wap" rel="stylesheet">
@@ -17,10 +16,8 @@
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
     <!-- snap scroll not smooth yet! -->    
-    </script>
-    <!-- div eraser -->
-     <script>
-        function disappearDiv() {
+    <script>
+    function disappearDiv() {
     var div = document.querySelector('.disappearing-div');
     div.classList.add('disappeared');
     }
@@ -30,81 +27,69 @@
     const container = document.getElementById("container");
     const images = document.querySelectorAll(".img-container");
     let currentIndex = 0;
-
     // Eventlistener für das Mausrad hinzufügen
     container.addEventListener("wheel", function(event) {
         console.log("Mouse wheel event");
-
         // Berechne den Index des nächsten Bildes
         currentIndex = (currentIndex + (event.deltaY > 0 ? 1 : -1) + images.length) % images.length;
-
         // Scrolle zum ausgewählten Bild mit Smooth-Scrolling
         images[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
-
         // Verhindere das Standard-Scrollverhalten, um Doppelscrollen zu vermeiden
         event.preventDefault();
     }, { passive: false });
     });
-
      </script>
-
-
-
-
-
-
 </head>
-
 <body>    
+    <div id="overlay-container"class="disappearing-div" onclick="disappearDiv(this)">
     
-
-</div>
-<div id="container"><!--scroll snap-->
-    <div id="overlay-container"class="disappearing-div" onclick="disappearDiv(this)"> 
-    <div id="containerbox " >
-        <div class="img-container img2"></div>
         <div class=" text-container-2 ">
         Willkommen auf meiner persönlichen Portfolio-Seite! diese Seite wir wird noch bearbeitet. KLICK HIER um fortzufahren
          </div>
         </div>
-    </div>
-    <div id="scene-container2"><!--scene 2 container--></div>
-    <div id="threejs-container" onclick="onClick(event)"></div>
-    <div id="uneven" class="layer img-container img3 scroll-section"><!--Inhalt für Layer 1--></div>
-    <div id="containerbox">
-        <div id="layer1" class="layer"></div> 
+    <div id="container"><!--scroll snap-->
+        <div id="threejs-container" class="img-container " onclick="onClick(event)"></div>
+        <div id="layer1" ></div><!--layer1=three scene --> 
+    <div class="layer  img3 scroll-section"><!--Inhalt für Layer 1--></div>
+        <div id="containerbox">
+                <div class="img-container img2"></div>
+                <div class=" text-container-1 headliner">
+                But I must explain to you how all 
+                this mistaken idea of denouncing pleasure and praising pain 
+                was born and I will give you a complete account of the system,
+                and expound the actual teachings of the great explorer of the
+                But I must explain to you how all 
+                this mistaken idea of denouncing pleasure and praising pain 
+                was born and I will give you a complete account of the system,
+                and expound the actual teachings of the great explorer of the  
+            </div>
+        </div>
+        <div id="containerbox">
+                <div class="img-container img2"></div>
+                <div class=" text-container-1 headliner">
+                But I must explain to you how all 
+                this mistaken idea of denouncing pleasure and praising pain 
+                was born and I will give you a complete account of the system,
+            </div>
+        </div>
+        <div id="containerbox">
             <div class="img-container img2"></div>
-            <div class=" text-container-1 ">
-            But I must explain to you how all 
-            this mistaken idea of denouncing pleasure and praising pain 
-            was born and I will give you a complete account of the system,
-            and expound the actual teachings of the great explorer of the 
+            <div class=" text-container-1 headliner">
+                But I must explain to you how all 
+                this mistaken idea of denouncing pleasure and praising pain 
+                was born and I will give you a complete account of the system,
+                and expound the actual teachings of the great explorer of the 
+                truth, the master-builder of human happiness. No one rejects, 
+            </div>
+          
         </div>
-    </div>
-    <div id="containerbox">
-            <div class="img-container img2"></div>
-            <div class=" text-container-1 ">
-            But I must explain to you how all 
-            this mistaken idea of denouncing pleasure and praising pain 
-            was born and I will give you a complete account of the system,
+        <div class="parallax blur background1 ">
         </div>
-    </div>
-    <div id="containerbox">
-       <div class="img-container img1"></div>
-       <div class=" text-container-1">
-           But I must explain to you how all 
-           this mistaken idea of denouncing pleasure and praising pain 
-           was born and I will give you a complete account of the system,
-           and expound the actual teachings of the great explorer of the 
-           truth, the master-builder of human happiness. No one rejects, 
-       </div>
-    </div>
-    <div class="parallax blur background1 ">
-    </div>
-    <div class="parallax blur background2 ">
-    </div>
-    <div class="parallax blur background3 ">
+        <div class="parallax blur background2 ">
         </div>
+        <div class="parallax blur background3 ">
+            </div>
+
     </div>
     <script>
         function scrollToSection(sectionId) {
@@ -194,9 +179,9 @@
         guiContainer.style.position = 'absolute';
         guiContainer.style.top = '50';
         guiContainer.style.right = '0';
-        guiContainer.style.zIndex = 5;
+        guiContainer.style.zIndex = 5000;
         guiContainer.appendChild(gui.domElement);
-        document.getElementById('scene-container2').appendChild(guiContainer);
+        document.getElementById('threejs-container').appendChild(guiContainer);
         const zoomSettings = {
             zoom: 1
         };
