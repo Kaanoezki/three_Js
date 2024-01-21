@@ -39,18 +39,28 @@
     }, { passive: false });
     });
      </script>
+
+     
 </head>
 <body>    
     <div id="overlay-container"class="disappearing-div" onclick="disappearDiv(this)">
-    
         <div class=" text-container-2 ">
         Willkommen auf meiner persönlichen Portfolio-Seite! diese Seite wir wird noch bearbeitet. KLICK HIER um fortzufahren
          </div>
         </div>
+
+        <!--sprechbubble zwischen overlay und three js scene-->
+        <div id="overlay" onclick="closeOverlay()"></div>
+        <div id="speechBubble">
+            <p>Text in der Sprechblase</p>
+        </div>
+        
+
+
     <div id="container"><!--scroll snap-->
         <div id="threejs-container" class="img-container " onclick="onClick(event)"></div>
         <div id="layer1" ></div><!--layer1=three scene --> 
-    <div class="layer  img3 scroll-section"><!--Inhalt für Layer 1--></div>
+    <div class="layer  img3 scroll-section"></div>
         <div id="containerbox">
                 <div class="img-container img2"></div>
                 <div class=" text-container-1 headliner">
@@ -375,6 +385,7 @@ updateRotation();
 
             if (intersects.length > 0) {
                 const clickedObject = intersects[0].object;
+                showHoveredWindow(hoveredObject);
 
                 if (clickedObject.isMesh) {
                     clickedObject.material.color.set(0x00ff00);  // Setze die Farbe auf Grün
@@ -382,6 +393,10 @@ updateRotation();
                 }
             }
         }
+  
+
+
+
                 function onClick(event) {
                     onObjectClick(event, roomObj.initObj);
                 }
@@ -396,23 +411,29 @@ updateRotation();
     </script>
         <script>//ergänzung für den css textinhalt änderung(innerhtml)
             // Funktion zum Aktualisieren des Textinhalts basierend auf der Bildschirmbreite
-       function updateTextContent() {
-           var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-           var layer1 = document.getElementById('layer1');
-       
-           if (screenWidth <= 600) {
-               (layer1).innerText   = 'If you dont use a smaller Device, please change the window-size for a better experience !';
-           } else {
-               layer1.innerText = 'Inhalt für Layer 1';
-           }
-       }
-       window.addEventListener('resize', function () {
-           updateTextContent();
-       });
-       // Event-Listener für das 'DOMContentLoaded'-Event, um den Textinhalt beim Laden der Seite zu initialisieren
-       window.addEventListener('DOMContentLoaded', function () {
-           updateTextContent();
-       });
+            function updateTextContent() {
+    var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var layer1 = document.getElementById('layer1');
+
+    if (screenWidth <= 600) {
+        layer1.innerText = 'If you dont use a smaller Device, please change the window-size for a better experience !';
+        layer1.style.position = 'fixed';
+        layer1.style.top = '0%';
+        layer1.style.left = '50%';
+        layer1.style.transform = 'translate(-50%, -50%)';
+        layer1.style.zIndex = '10000'; 
+  
+     
+    } else {
+        layer1.innerText = '';
+        layer1.style.position = '';
+        layer1.style.top = '';
+        layer1.style.left = '';
+        layer1.style.transform = '';
+        layer1.style.zIndex = ''; 
+      
+    }
+}
 
     </script>
     

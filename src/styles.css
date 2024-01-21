@@ -35,7 +35,7 @@ html {
     background-color:#e0ffff;
     height: 100%;
     margin: 0;
-    overflow: hidden;
+    overflow-y: hidden;
     overflow-x:hidden;
 }
 #container {
@@ -90,9 +90,12 @@ body
     width: 5%;
     height: 115vh;
     background-color: blue;
-    
 }
 
+    
+#speechBubble{
+    color: white;
+}
 
 .parent {
     overflow: scroll;
@@ -106,6 +109,9 @@ body
     position: relative;
   }
 .img-container{
+    flex:1;
+    margin-top: 2em;
+    margin-bottom: 2em;
     margin-left:1cm;
     background-size: contain;
 }
@@ -114,6 +120,9 @@ body
     
     object-fit: cover;
     display: flex;
+    /* flex-grow: 1;
+    flex-shrink: 1; */
+
     position: relative;
     transform: none;
     margin: 5%;
@@ -142,7 +151,7 @@ body
 
 .headliner{
     font-family: 'Roboto Slab', sans-serif;
-    font-size: 3vh;
+    font-size: 2vh;
     color: transparent; /* Der Text wird transparent gemacht */
     -webkit-text-stroke: px #000; /* Hier wird der Umriss erstellt */
 }
@@ -185,14 +194,16 @@ canvas {
 }
   
 .text-container-1{
-    margin: 5cm;
-    display:flex;
-    align-items: center;
-    border-color: aliceblue;
-    transition: font-size 1s ease-in-out;
-    margin:5px;
    
-    -webkit-text-stroke: 1px #000; /* Hier wird der Umriss erstellt */
+    margin:5px;
+    display:flex;
+    flex:2;
+    align-items: center;
+  
+    transition: font-size 1s ease-in-out;
+   
+    
+    -webkit-text-stroke: 0.8px #000; /* Hier wird der Umriss erstellt */
    
 }
 .text-container-1:hover {
