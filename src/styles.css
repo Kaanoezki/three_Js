@@ -116,7 +116,8 @@ body
     background-size: contain;
 }
 
-#containerbox {
+#containerbox{
+
     
     object-fit: cover;
     display: flex;
@@ -127,15 +128,15 @@ body
     transform: none;
     margin: 5%;
     justify-content:space-between;
-    
+    height: 600px;
     background-color: #ffe4b5;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
 
     width: 80vw;
-    height: 100vh;
-    max-block-size: 30%;
+
+    max-block-size: 100%;
     transition: 1s ease-in-out;
     transform: translatex(22%);
     z-index: 1;
@@ -154,6 +155,11 @@ body
     font-size: 2vh;
     color: transparent; /* Der Text wird transparent gemacht */
     -webkit-text-stroke: px #000; /* Hier wird der Umriss erstellt */
+
+
+
+
+
 }
 
 .headliner:hover{
@@ -195,16 +201,14 @@ canvas {
   
 .text-container-1{
    
-    margin:5px;
+  
     display:flex;
     flex:2;
+    top:0;
+
     align-items: center;
-  
     transition: font-size 1s ease-in-out;
-   
-    
     -webkit-text-stroke: 0.8px #000; /* Hier wird der Umriss erstellt */
-   
 }
 .text-container-1:hover {
     text-shadow: 1px 1px 4px rgb(255, 255, 255);
