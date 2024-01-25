@@ -27,17 +27,27 @@
     const container = document.getElementById("container");
     const images = document.querySelectorAll(".img-container");
     let currentIndex = 0;
+
     // Eventlistener für das Mausrad hinzufügen
     container.addEventListener("wheel", function(event) {
         console.log("Mouse wheel event");
+
         // Berechne den Index des nächsten Bildes
-        currentIndex = (currentIndex + (event.deltaY > 0 ? 1 : -1) + images.length) % images.length;
+        currentIndex = (currentIndex + (event.deltaY > 0 ? 1 : -1) + images.length ) % images.length;
+
         // Scrolle zum ausgewählten Bild mit Smooth-Scrolling
-        images[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const imageHeight = images[currentIndex].offsetHeight;
+        const scrollOffset = imageHeight * 0.5; // 20% des Bildhöhe
+
+        images[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+
+        // Verschiebe das Bild um 20% nach oben
+        window.scrollBy(0, -scrollOffset);
+
         // Verhindere das Standard-Scrollverhalten, um Doppelscrollen zu vermeiden
         event.preventDefault();
     }, { passive: false });
-    });
+});
      </script>
 
      
@@ -51,36 +61,58 @@
 
         <!--sprechbubble zwischen overlay und three js scene-->
         <div id="overlay" onclick="closeOverlay()"></div>
-        <div id="speechBubble">
-            <p>Text in der Sprechblase</p>
+        <div id="speechBubble" class="headliner ">
+            <center> <p> Mausrat runter scrollen </p>
+            </center>
         </div>
         
-
-
     <div id="container"><!--scroll snap-->
-        <div id="threejs-container" class="img-container " onclick="onClick(event)"></div>
-        <div id="layer1" ></div><!--layer1=three scene --> 
-    <div class="layer  img3 scroll-section"></div>
-        <div id="containerbox">
-                <div class="img-container img2"></div>
-                <div class=" text-container-1 headliner">
-                    Ich freue mich, Ihnen mein Interesse und meine Leidenschaft für die Softwareentwicklung vorstellen zu dürfen. 
+
+        <div id="containerbox" class="BG-color1 left-border ">
+                <div id="txt-left" class=" text-container-1  headliner mH">
+                    Hi! Ich freue mich, Ihnen mein Interesse und meine Leidenschaft für die Softwareentwicklung vorstellen zu dürfen. 
                     Derzeit absolviere ich eine Umschulung zum Softwareentwickler, 
                     in der ich mein Wissen im Bereich Frontend JavaScript vertiefe. 
                     Die Motivation für diesen beruflichen Wechsel sowie meine bisherigen Erfahrungen möchte ich Ihnen gerne näherbringen.
             </div>
+            <div class="img-container img1  "></div>
         </div>
-        <div id="containerbox">
-                <div class="img-container img2"></div>
-                <div class=" text-container-1 headliner">
+
+        <div id="threejs-container" class="img-container  " onclick="onClick(event)"></div>
+        <div id="layer1" class=" border-circle  imgtree " ></div>
+    <div class="layer scroll-section "></div>
+        <div id="containerbox" class="BG-color2 left-border">
+                <div class="img-container img5"></div>
+                <div id="txt-right" class=" text-container-1 headliner mH">
+                    Die Entscheidung, mich auf die Frontend-Entwicklung zu fokussieren,
+                     gründet sich in meiner Begeisterung für
+                      die Nutzererfahrung und die Gestaltung ansprechender 
+                      Benutzeroberflächen. Durch die intensive Beschäftigung mit JavaScript und Three.js
+                       konnte ich meine Kenntnisse in der 3D-Webentwicklung vertiefen, was mir ermöglicht hat,
+                    innovative und immersive Lösungen zu schaffen.
+                    Mein Ziel ist es, mich in einem innovativen Unternehmen weiterzuentwickeln, 
+                    das Wert auf kreative Lösungsansätze und eine hohe Qualitätsstandards legt.
+                     Die Möglichkeit, mit modernen Technologien und Werkzeugen wie VS Code meine 
+                     Fähigkeiten auszubauen und an anspruchsvollen Projekten teilzunehmen,
+                    ist für mich von hoher Bedeutung.
+            </div>
+          
+        </div>
+        <div id="containerbox" class="BG-color3 left-border ">
+           
+            <div id="txt-left" class=" text-container-1 headliner mH">
                 But I must explain to you how all 
                 this mistaken idea of denouncing pleasure and praising pain 
                 was born and I will give you a complete account of the system,
+                and expound the actual teachings of the great explorer of the 
+                truth, the master-builder of human happiness. No one rejects, 
             </div>
+            <div class="img-container img4"></div>
+          
         </div>
-        <div id="containerbox">
-            <div class="img-container img2"></div>
-            <div class=" text-container-1 headliner">
+        <div id="containerbox" class="BG-color1 left-border">
+            <div class="img-container img3"></div>
+            <div  id="txt-right" class=" text-container-1 headliner mH">
                 But I must explain to you how all 
                 this mistaken idea of denouncing pleasure and praising pain 
                 was born and I will give you a complete account of the system,
@@ -89,6 +121,21 @@
             </div>
           
         </div>
+  <div id="containerbox" class="BG-color2 left-border ">
+            <div id="txt-left" class=" text-container-1 headliner mH">
+                But I must explain to you how all 
+                this mistaken idea of denouncing pleasure and praising pain 
+                was born and I will give you a complete account of the system,
+                and expound the actual teachings of the great explorer of the 
+                truth, the master-builder of human happiness. No one rejects, 
+            </div>
+            <div class="img-container img7"></div>
+    </div>
+    <div class="footer">
+        sadsad
+    </div>
+
+     
         <div class="parallax blur background1 ">
         </div>
         <div class="parallax blur background2 ">
@@ -109,7 +156,7 @@
     <!--navbar-->
     <nav>
         <nav class="textresizer">
-            <ul class="navbar container">
+            <ul class="navbar container ">
                 <li class="a"><a href="#threejs-container" onclick="scrollToSection('threejs-container')">Start</a></li>
                 <li class="b"><a href="#layer1" onclick="scrollToSection('layer1')">about me</a></li>
                 <li class="c"><a href="containerbox" onclick="scrollToSection('containerbox')">Praktische Erfahrung </a></li>
@@ -276,25 +323,25 @@ updateRotation();
     function light() {
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.rotation.x = Math.PI / 2; 
-        directionalLight.position.set(1,1,1);
+        directionalLight.position.set(0,3,1);
         
         scene.add(directionalLight);
         const lightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
-        scene.add(lightHelper);
+        // scene.add(lightHelper);
 
         const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight2.position.set(1, 5, 0).normalize();
         scene.add(directionalLight);
         const lightHelper2 = new THREE.DirectionalLightHelper(directionalLight, 1);
-        scene.add(lightHelper);
+        // scene.add(lightHelper);
 
-        const ambientLight = new THREE.AmbientLight(0xffffff); // Farbe und Intensität
+        const ambientLight = new THREE.AmbientLight(0xffffff,1); // Farbe und Intensität
         ambientLight.intensity = 1; // Hier die Intensität anpassen (zwischen 0 und 1)
         ambientLight.position.set(1, 5, 0);     
         scene.add(ambientLight);
 
 
-        const spotLight = new THREE.SpotLight(0xffffff, 15);
+        const spotLight = new THREE.SpotLight(0xffffff, 10);
         spotLight.angle = Math.PI / 60; // Öffnungswinkel des Strahls
         spotLight.penumbra = 1; // Weiche Kante des Strahls
         spotLight.decay = 5; // Abnahme des Lichts mit dem Abstand

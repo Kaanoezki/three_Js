@@ -6,11 +6,14 @@
 #tag a{
     /* scroll tag */
     scroll-snap-align: start;
+}
 
+.mH{
+    min-width: 0;
 }
 
 #container{
-background-color:lightcyan;
+background-color:#20b2aa;
 
     
 }
@@ -32,10 +35,9 @@ background-color:lightcyan;
     align-items: center;
 }
 html {
-    background-color:#e0ffff;
     height: 100%;
     margin: 0;
-    overflow-y: hidden;
+    overflow-y:hidden;
     overflow-x:hidden;
 }
 #container {
@@ -47,9 +49,9 @@ html {
 body  
 {
    background-color: #000;
-     overflow-y: hidden; 
-     overflow-x: hidden;
-     height: 100%;
+    overflow-y: hidden; 
+    overflow-x: hidden;
+    height: 100%;
     margin: 0;
     overflow: hidden;
     
@@ -110,56 +112,96 @@ body
   }
 .img-container{
     flex:1;
-    margin-top: 2em;
+    margin-top: 4em;
     margin-bottom: 2em;
     margin-left:1cm;
+    
     background-size: contain;
 }
+.border-circle{
+    border-style: solid;
+    
+    margin-left: 5%;
+    min-height: 90%;
+    -moz-border-radius:100%;
+    -webkit-border-radius:100%;
+    min-width: 90%;
+    background-color: #ffe4b5;
+    border-color: transparent;
+    z-index: 50;
+}
+
+
+#txt-left{
+    margin-left: 10%;
+}
+#txt-right{
+    margin-right: 5%;
+    margin-left: 5%;  
+}
+
+.left-border{
+    border-bottom-right-radius:1cm;
+    border-top-right-radius: 1cm;
+}
+
 
 #containerbox{
-
-    
     object-fit: cover;
     display: flex;
     /* flex-grow: 1;
     flex-shrink: 1; */
-
+    
+    margin-bottom: 15%;
     position: relative;
     transform: none;
-    margin: 5%;
-    justify-content:space-between;
-    height: 600px;
-    background-color: #ffe4b5;
+    justify-content:space-evenly;
+    height: 100%;
+    min-height: 800px;
+    
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
 
-    width: 80vw;
-
-    max-block-size: 100%;
+    width: 100vw;
+    max-block-size: 40%;
+    transform: translateX(-5%);
     transition: 1s ease-in-out;
-    transform: translatex(22%);
+    /* transform:(-0%); */
     z-index: 1;
-    border-bottom-left-radius: 2cm;
-    border-top-left-radius: 2cm;
-    border-style: double;
-    border-color: #ffe4e1;
- 
+    /* border-bottom-left-radius: 2cm;
+    border-top-left-radius: 2cm; */
+    border-style:solid;
+    border-color:white; 
 }
+/*color harmony: #fff562, #62fff5, #f562ff */
+/* mistyrose 	#ffe4e1
+ 	lightcyan 	#e0ffff
+ 	moccasin 	#ffe4b5
+ 
+*/
+.BG-color1{
+    background-color: #eeeeee;
+   
+}
+.BG-color2{
+    background-color: #e0ffff;
+}
+.BG-color3{
+    background-color: #ffe4b5;
+}
+
 #containerbox:hover{
     border-color: black;
+   
 }
+
 
 .headliner{
     font-family: 'Roboto Slab', sans-serif;
-    font-size: 2vh;
+    font-size: 3vh;
     color: transparent; /* Der Text wird transparent gemacht */
     -webkit-text-stroke: px #000; /* Hier wird der Umriss erstellt */
-
-
-
-
-
 }
 
 .headliner:hover{
@@ -172,7 +214,7 @@ canvas {
    
     display: block;
     position: absolute;
-    body { margin: 0; }
+    body { margin: 0; };
 
 }
 .layer {
@@ -184,8 +226,8 @@ canvas {
 }
 
 #layer1{
-    transform: translateX(50%); 
-    transform: translatey(50%); 
+
+    transform: translatey(-10%); 
    
 }
 
@@ -200,13 +242,11 @@ canvas {
 }
   
 .text-container-1{
-   
-  
     display:flex;
     flex:2;
     top:0;
-
     align-items: center;
+    align-self: center;
     transition: font-size 1s ease-in-out;
     -webkit-text-stroke: 0.8px #000; /* Hier wird der Umriss erstellt */
 }
@@ -229,19 +269,67 @@ p{
 .blur {
     filter: blur(10px);
 }
+.img-container{
+    display: flex;
+    justify-content: center;
+    margin-right: 5%;
+    margin-left: 10%;
+    transform: translateY(20%);
+
+}
+.parallaxmagic{
+    --f: .1; /* the parallax factor (the smaller the better) */
+    --r: 10px; /* radius */
+    --_f: calc(100%*var(--f)/(1 + var(--f)));
+    --_a: calc(90deg*var(--f));
+    width: 250px; /* the image size */
+    aspect-ratio: calc(1 + var(--f));
+    object-fit: cover;
+    clip-path: inset(0 var(--_f) 0 0 round var(--r));
+    transform: perspective(400px) var(--_t,rotatex(var(--_a)));
+    transition: .5s;
+    cursor: pointer;
+   
+    animation-name: example;
+    animation-duration: 4s;
+}
+@keyframes example {
+    0%   { --_f: calc(100%*var(--f)/(1 + var(--f)));}
+    100%  { --_f: calc(1000%*var(--f)/(1 + var(--f)));}
+  }
+.parallaxmagic:hover{
+    clip-path: inset(0 0 0 var(--_f) round var(--r));
+    --_t: translateX(calc(-1*var(--_f))) rotateY(calc(-1*var(--_a)))
+    
+}
+
 .img1 {
-    background-image: url('../assets/bilder/room2.jpg');
+    background-image: url('../assets/bilder/icon\ \(2\).jpg');
     background-repeat: no-repeat;
     background-position: center center;
     width: 50%;
     height: 50%;
     transition: 1s ease-in-out;
-    z-index: 1
+    z-index: 1;
+
+    --f: .05; /* the parallax factor (the smaller the better) */
+    --r: 10px; /* radius */
+    --_f: calc(1000%*var(--f)/(1 + var(--f)));
+    --_a: calc(-0deg*var(--f));
+    width: 250px; /* the image size */
+    aspect-ratio: calc(1 + var(--f));
+    object-fit: cover;
+    clip-path: inset(0 var(--_f) 0 0 round var(--r));
+    transform: perspective(400px) var(--_t,rotatex(var(--_a)));
+    transition: .5s;
+    cursor: pointer;
+    
 }
 .img1:hover{
-    transform: translateY(-5%);
-    transform:scale(95%);
-    filter:brightness(1.2);
+    clip-path: inset(0 0 0 var(--_f) round var(--r));
+  --_t: translateX(calc(-1*var(--_f))) rotateY(calc(-1*var(--_a)))
+    transform:translatey(27%);
+    filter:contrast(1.3);
 }
 .img2{
    
@@ -254,29 +342,94 @@ p{
     z-index: 1; 
 }
 .img2:hover{
-    transform: translateY(-5%);
-    transform:scale(95%);
+    transform:translatey(27%);
+    filter:brightness(1.2);
+}
+.img3{
+   
+    background-image: url('../assets/bilder/assetPlacerTool.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 50%;
+    height:50%;
+    transition: 1s ease-in-out;
+    z-index: 1; 
+}
+.img3:hover{
+    transform:translatey(27%);
+    filter:brightness(1.2);
+  
+}
+
+
+.img4{
+   
+    background-image: url('../assets/bilder/4.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 50%;
+    height:50%;
+    transition: 1s ease-in-out;
+    z-index: 1; 
+}
+.img4:hover{
+    transform:translatey(27%);
+    filter:contrast(1.2);
+}
+.img5{
+   
+    background-image: url('../assets/bilder/icon\ \(3\).jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 50%;
+    height:50%;
+    transition: 1s ease-in-out;
+    z-index: 1; 
+}
+.img5:hover{
+    transform:translatey(27%);
+    filter:contrast(1.2);
+}
+
+.img7{
+   
+    background-image: url('../assets/bilder/icon\ \(4\).jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 50%;
+    height:50%;
+    transition: 1s ease-in-out;
+    z-index: 1; 
+}
+.img7:hover{
+    
+    transform:translatey(27%);
     filter:brightness(1.2);
 }
 
 
-/* .img3{
-    background-image: url('../assets/bilder/other/tree.jpeg');
-    background-color: rgba(255, 255, 255, 0.7);
-    background-size: contain;
-    background-repeat: no-repeat;
+
+.imgtree{
+    
+    background-image: 
+    linear-gradient(to bottom, rgba(255, 255, 255, 0),moccasin),
+    url('../assets/bilder/name3.jpg');
+    background-repeat:cover;
     background-position: center center;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     transition: 1s ease-in-out;
     margin: 5%;
-    z-index: 1
-} */
+    filter: blur(1px);
+    filter: brightness(0.8);
+
+}
 .footer {
     text-align: center; 
     background-color: #333;
     color: white; 
-    padding: 10px; 
+  
+    min-height: 5cm;
 }
        
 .disappearing-div {
@@ -303,7 +456,7 @@ p{
 @media (max-width: 600px) {
  
     .layer1{
-        background-color: red; 
+        
         
         transition: all 5s cubic-bezier(0.075, 0.81, 0.165, 1);
     }
