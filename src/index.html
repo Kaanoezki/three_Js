@@ -21,33 +21,26 @@
     var div = document.querySelector('.disappearing-div');
     div.classList.add('disappeared');
     }
-    //scroll snapping
-    document.addEventListener("DOMContentLoaded", function() {
-    console.log("DOMContentLoaded event fired");
-    const container = document.getElementById("container");
-    const images = document.querySelectorAll(".img-container");
-    let currentIndex = 0;
+    document.addEventListener("DOMContentLoaded", function () {
+            console.log("DOMContentLoaded event fired");
+            const container = document.body;
+            const sections = document.querySelectorAll(".snap");
 
-    // Eventlistener für das Mausrad hinzufügen
-    container.addEventListener("wheel", function(event) {
-        console.log("Mouse wheel event");
+            let currentIndex = 0;
 
-        // Berechne den Index des nächsten Bildes
-        currentIndex = (currentIndex + (event.deltaY > 0 ? 1 : -1) + images.length ) % images.length;
+            container.addEventListener("wheel", function (event) {
+                console.log("Mouse wheel event");
 
-        // Scrolle zum ausgewählten Bild mit Smooth-Scrolling
-        const imageHeight = images[currentIndex].offsetHeight;
-        const scrollOffset = imageHeight * 0.5; // 20% des Bildhöhe
+                // Berechne den Index des nächsten Abschnitts
+                currentIndex = (currentIndex + (event.deltaY > 0 ? 1 : -1) + sections.length) % sections.length;
 
-        images[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                // Scrolle zum Abschnitt mit Smooth-Scrolling
+                sections[currentIndex].scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
 
-        // Verschiebe das Bild um 20% nach oben
-        window.scrollBy(0, -scrollOffset);
-
-        // Verhindere das Standard-Scrollverhalten, um Doppelscrollen zu vermeiden
-        event.preventDefault();
-    }, { passive: false });
-});
+                // Verhindere das Standard-Scrollverhalten, um Doppelscrollen zu vermeiden
+                event.preventDefault();
+            }, { passive: false });
+        });
      </script>
 
      
@@ -62,44 +55,46 @@
         <!--sprechbubble zwischen overlay und three js scene-->
         <div id="overlay" onclick="closeOverlay()"></div>
         <div id="speechBubble" class="headliner ">
-            <center> <p> Mausrat runter scrollen </p>
+            <center>  Mausrat runter scrollen 
             </center>
         </div>
         
-    <div id="container"><!--scroll snap-->
-
-        <div id="containerbox" class="BG-color1 left-border ">
+    <div id="container">
+        <div id="#a" class="snap"></div>
+        <div id="containerbox" class="BG-color1 left-border  ">
                 <div id="txt-left" class=" text-container-1  headliner mH">
                     Hi! Ich freue mich, Ihnen mein Interesse und meine Leidenschaft für die Softwareentwicklung vorstellen zu dürfen. 
                     Derzeit absolviere ich eine Umschulung zum Softwareentwickler, 
                     in der ich mein Wissen im Bereich Frontend JavaScript vertiefe. 
                     Die Motivation für diesen beruflichen Wechsel sowie meine bisherigen Erfahrungen möchte ich Ihnen gerne näherbringen.
-            </div>
-            <div class="img-container img1  "></div>
+                    Die Entscheidung, mich auf die Frontend-Entwicklung zu fokussieren,
+                    gründet sich in meiner Begeisterung für
+                     die Nutzererfahrung und die Gestaltung ansprechender 
+                     Benutzeroberflächen. Durch die intensive Beschäftigung mit JavaScript und Three.js
+                      konnte ich meine Kenntnisse in der 3D-Webentwicklung vertiefen, was mir ermöglicht hat,
+                   innovative und immersive Lösungen zu schaffen.
+                </div>
+            <div class="img-container img1"></div>
         </div>
-
-        <div id="threejs-container" class="img-container  " onclick="onClick(event)"></div>
-        <div id="layer1" class=" border-circle  imgtree " ></div>
-    <div class="layer scroll-section "></div>
-        <div id="containerbox" class="BG-color2 left-border">
+        <div class="snap"></div>
+            <div id="threejs-container" class="img-container" onclick="onClick(event)"></div>
+            <div id="layer1"></div>
+            <div class="layer b "></div>
+       
+        <div class="snap "></div>
+        <div id="containerbox" class="BG-color2 left-border ">
                 <div class="img-container img5"></div>
                 <div id="txt-right" class=" text-container-1 headliner mH">
-                    Die Entscheidung, mich auf die Frontend-Entwicklung zu fokussieren,
-                     gründet sich in meiner Begeisterung für
-                      die Nutzererfahrung und die Gestaltung ansprechender 
-                      Benutzeroberflächen. Durch die intensive Beschäftigung mit JavaScript und Three.js
-                       konnte ich meine Kenntnisse in der 3D-Webentwicklung vertiefen, was mir ermöglicht hat,
-                    innovative und immersive Lösungen zu schaffen.
-                    Mein Ziel ist es, mich in einem innovativen Unternehmen weiterzuentwickeln, 
+                   
+                   Mein Ziel ist es, mich in einem innovativen Unternehmen weiterzuentwickeln, 
                     das Wert auf kreative Lösungsansätze und eine hohe Qualitätsstandards legt.
                      Die Möglichkeit, mit modernen Technologien und Werkzeugen wie VS Code meine 
                      Fähigkeiten auszubauen und an anspruchsvollen Projekten teilzunehmen,
                     ist für mich von hoher Bedeutung.
             </div>
-          
         </div>
+        <div class="snap "></div>
         <div id="containerbox" class="BG-color3 left-border ">
-           
             <div id="txt-left" class=" text-container-1 headliner mH">
                 But I must explain to you how all 
                 this mistaken idea of denouncing pleasure and praising pain 
@@ -108,9 +103,9 @@
                 truth, the master-builder of human happiness. No one rejects, 
             </div>
             <div class="img-container img4"></div>
-          
         </div>
-        <div id="containerbox" class="BG-color1 left-border">
+        <div class="snap"></div>
+        <div id="containerbox" class="BG-color1 left-border ">
             <div class="img-container img3"></div>
             <div  id="txt-right" class=" text-container-1 headliner mH">
                 But I must explain to you how all 
@@ -119,9 +114,9 @@
                 and expound the actual teachings of the great explorer of the 
                 truth, the master-builder of human happiness. No one rejects, 
             </div>
-          
         </div>
-  <div id="containerbox" class="BG-color2 left-border ">
+        <div class="snap"></div>
+        <div id="containerbox" class="BG-color2 left-border ">
             <div id="txt-left" class=" text-container-1 headliner mH">
                 But I must explain to you how all 
                 this mistaken idea of denouncing pleasure and praising pain 
@@ -130,20 +125,14 @@
                 truth, the master-builder of human happiness. No one rejects, 
             </div>
             <div class="img-container img7"></div>
-    </div>
-    <div class="footer">
-        sadsad
-    </div>
-
-     
-        <div class="parallax blur background1 ">
+            
         </div>
-        <div class="parallax blur background2 ">
+        <div class="footer">
+            sadsad
         </div>
-        <div class="parallax blur background3 ">
-            </div>
-
     </div>
+    
+    
     <script>
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
@@ -155,11 +144,12 @@
     </script>
     <!--navbar-->
     <nav>
-        <nav class="textresizer">
+        <nav class="textresizer ">
+            
             <ul class="navbar container ">
-                <li class="a"><a href="#threejs-container" onclick="scrollToSection('threejs-container')">Start</a></li>
-                <li class="b"><a href="#layer1" onclick="scrollToSection('layer1')">about me</a></li>
-                <li class="c"><a href="containerbox" onclick="scrollToSection('containerbox')">Praktische Erfahrung </a></li>
+                <li class="a"><a href="#layer1" onclick="scrollToSection('layer1')">Three-js scene</a></li>
+                <li class="b"><a href="#threejs-container" onclick="scrollToSection('threejs-container')">Three-js scene</a></li>
+                <li class="c"><a href="#a" onclick="scrollToSection('a')">Praktische Erfahrung </a></li>
                 <li class="d"><a href="#containerbox" onclick="scrollToSection('containerbox')">Section 3</a></li>
                 <a class="v blink">Navigation</a> 
 
@@ -290,15 +280,7 @@ updateRotation();
             );
         }
 
-        function isElementInViewport(el) {
-        var rect = el.getBoundingClientRect();
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
-        }
+       
 
         document.addEventListener('wheel', function (event) {
             var layer1 = document.getElementById('layer1');
@@ -308,7 +290,7 @@ updateRotation();
                 
             }
         
-        });
+        }, false);
             
         function isElementInViewport(el) {
             var rect = el.getBoundingClientRect();
@@ -436,21 +418,12 @@ updateRotation();
                 }
             }
         }
-  
-
-
-
                 function onClick(event) {
                     onObjectClick(event, roomObj.initObj);
                 }
                 document.getElementById('threejs-container').addEventListener('click', onClick, false);
                 windowResize();
                 initObjects();
-
-    
-
-
-        
     </script>
         <script>//ergänzung für den css textinhalt änderung(innerhtml)
             // Funktion zum Aktualisieren des Textinhalts basierend auf der Bildschirmbreite
@@ -458,11 +431,12 @@ updateRotation();
     var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     var layer1 = document.getElementById('layer1');
 
-    if (screenWidth <= 600) {
+     if (screenWidth <= 600 && window.innerHeight <= 600) {
         layer1.innerText = 'If you dont use a smaller Device, please change the window-size for a better experience !';
+        layer1.style.color = 'red';
         layer1.style.position = 'fixed';
         layer1.style.top = '0%';
-        layer1.style.left = '50%';
+        layer1.style.left = '0%';
         layer1.style.transform = 'translate(-50%, -50%)';
         layer1.style.zIndex = '10000'; 
   
@@ -475,7 +449,7 @@ updateRotation();
         layer1.style.transform = '';
         layer1.style.zIndex = ''; 
       
-    }
+    } 
 }
 
     </script>

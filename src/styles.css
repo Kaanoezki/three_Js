@@ -3,6 +3,11 @@
  	lightcyan 	#e0ffff
  	moccasin 	#ffe4b5
 */
+#a
+#b
+#c
+#d
+
 #tag a{
     /* scroll tag */
     scroll-snap-align: start;
@@ -12,12 +17,25 @@
     min-width: 0;
 }
 
-#container{
-background-color:#20b2aa;
 
-    
+
+
+#container {
+    scrollbar-width: thin;
+    scrollbar-color: #ffffff #20b2aa; /* Farben anpassen */
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+    padding: 0;
+    overflow-x:hidden;
+    scroll-behavior: smooth;
+
+  background-color:#20b2aa !important;
 }
+
+
 #threejs-container {
+    
     position: relative;
     z-index: 10; /* Stellen Sie sicher, dass der Three.js-Container unter dem Overlay liegt */
 }
@@ -40,20 +58,24 @@ html {
     overflow-y:hidden;
     overflow-x:hidden;
 }
-#container {
-    scroll-snap-type: y mandatory;
-    overflow-y: scroll;
-    height: 100vh;
-    padding: 0;
+.snap{
+    overflow-y:hidden;
+    overflow-x:hidden;
+}
+
+    
+section {
+    scroll-snap-align: start;
+    scroll-padding-top: 1px;
 }
 body  
 {
-   background-color: #000;
+   background-color: #20b2aa;
     overflow-y: hidden; 
     overflow-x: hidden;
     height: 100%;
     margin: 0;
-    overflow: hidden;
+    overflow-x:hidden;
     
 
 }
@@ -62,41 +84,12 @@ body
 }
 .parallax {
     position: fixed;
-    z-index: -500;
     transform: translate(-50%, -50%);
 }
-
-/* Unterklasse für Objekteigenschaften */
-.background1 {
-    border-color: white;
-    width: 5%;
-    height: 100vh;
-    background-color: black;
-    top: -10%;
-    left: 50%;
-}
-
-.background2 {
-    top: -100%;
-    left: 12%;
-    border-color: red;
-    width: 5%;
-    height: 115vh;
-    background-color: blue;
-    
-}
-.background3 {
-    top: 50%;
-    left: 80%;
-    border-color: red;
-    width: 5%;
-    height: 115vh;
-    background-color: blue;
-}
-
     
 #speechBubble{
     color: white;
+    background-color: #000;
 }
 
 .parent {
@@ -108,27 +101,25 @@ body
   section {
     height: 100vh;
     scroll-snap-align: start;
+    left:0;
     position: relative;
   }
 .img-container{
     flex:1;
-    margin-top: 4em;
-    margin-bottom: 2em;
     margin-left:1cm;
-    
     background-size: contain;
 }
 .border-circle{
-    border-style: solid;
     
-    margin-left: 5%;
-    min-height: 90%;
-    -moz-border-radius:100%;
-    -webkit-border-radius:100%;
-    min-width: 90%;
+    border-style: solid;
     background-color: #ffe4b5;
     border-color: transparent;
-    z-index: 50;
+    z-index: 10;
+    background-image: 
+    linear-gradient(to bottom, rgba(255, 255, 255, 0),moccasin),
+   
+    
+   
 }
 
 
@@ -141,8 +132,8 @@ body
 }
 
 .left-border{
-    border-bottom-right-radius:1cm;
-    border-top-right-radius: 1cm;
+    border-bottom-left-radius:2cm;
+    border-top-left-radius: 2cm;
 }
 
 
@@ -151,13 +142,13 @@ body
     display: flex;
     /* flex-grow: 1;
     flex-shrink: 1; */
-    
+    align-items: center;
     margin-bottom: 15%;
     position: relative;
     transform: none;
     justify-content:space-evenly;
     height: 100%;
-    min-height: 800px;
+    min-height: 100vh;
     
     background-size: contain;
     background-repeat: no-repeat;
@@ -165,7 +156,7 @@ body
 
     width: 100vw;
     max-block-size: 40%;
-    transform: translateX(-5%);
+   
     transition: 1s ease-in-out;
     /* transform:(-0%); */
     z-index: 1;
@@ -200,12 +191,11 @@ body
 .headliner{
     font-family: 'Roboto Slab', sans-serif;
     font-size: 3vh;
-    color: transparent; /* Der Text wird transparent gemacht */
+    color:transparent; /* Der Text wird transparent gemacht */
     -webkit-text-stroke: px #000; /* Hier wird der Umriss erstellt */
 }
 
 .headliner:hover{
-
     color: black; /* Der Text wird transparent gemacht */
 
 }
@@ -243,8 +233,7 @@ canvas {
   
 .text-container-1{
     display:flex;
-    flex:2;
-    top:0;
+    flex:1;
     align-items: center;
     align-self: center;
     transition: font-size 1s ease-in-out;
@@ -267,14 +256,16 @@ p{
     visibility: hidden;
 }
 .blur {
-    filter: blur(10px);
+    filter: blur(2px);
 }
 .img-container{
     display: flex;
-    justify-content: center;
+    justify-content: start;
+    margin-top: 5%;
     margin-right: 5%;
-    margin-left: 10%;
-    transform: translateY(20%);
+   
+   
+   
 
 }
 .parallaxmagic{
@@ -289,7 +280,7 @@ p{
     transform: perspective(400px) var(--_t,rotatex(var(--_a)));
     transition: .5s;
     cursor: pointer;
-   
+   z-index: 5000;
     animation-name: example;
     animation-duration: 4s;
 }
@@ -409,21 +400,7 @@ p{
 
 
 
-.imgtree{
-    
-    background-image: 
-    linear-gradient(to bottom, rgba(255, 255, 255, 0),moccasin),
-    url('../assets/bilder/name3.jpg');
-    background-repeat:cover;
-    background-position: center center;
-    width: 100vw;
-    height: 100vh;
-    transition: 1s ease-in-out;
-    margin: 5%;
-    filter: blur(1px);
-    filter: brightness(0.8);
 
-}
 .footer {
     text-align: center; 
     background-color: #333;
@@ -456,8 +433,6 @@ p{
 @media (max-width: 600px) {
  
     .layer1{
-        
-        
         transition: all 5s cubic-bezier(0.075, 0.81, 0.165, 1);
     }
     .navbar .a,
