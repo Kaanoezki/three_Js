@@ -1,69 +1,502 @@
- /*color harmony: #fff562, #62fff5, #f562ff */
+    /*color harmony: #fff562, #62fff5, #f562ff */
+    /* mistyrose 	#ffe4e1
+        lightcyan 	#e0ffff
+        moccasin 	#ffe4b5
+
+        Blue Popsicle: #0f2862
+        Redline: #9e363a
+        Purple Shadow: #091f36
+        Grey Blue Leaf: #4f5f76
+    */
+    #a
+    #b
+    #c
+    #d
+
+    #tag a{
+        /* scroll tag */
+        scroll-snap-align: start;
+    }
+
+    .mH{
+        min-width: 0;
+    }
+
+    #container {
+         
+        scrollbar-width:auto;
+        scrollbar-color: #e0ffff #8e8e8e; 
+        scroll-snap-type: y mandatory;
+        overflow-y: scroll;
+        height: 100vh;
+        padding: 0;
+        overflow-x:hidden;
+        scroll-behavior: smooth;
+        background-color: #8e8e90;
+        
+
        
- body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
 
-        canvas {
-            display: block;
-            body { margin: 0; }
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
+    }
 
-        .layer {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
 
-        #layer1 {
-            background-color: #fff562;
-            z-index: -30;
-          
-        }
+    #threejs-container {
+        
+        position: relative;
+        z-index: 10; /* Stellen Sie sicher, dass der Three.js-Container unter dem Overlay liegt */
+    }
+    #overlay-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        font-family: Titillium Web;
+    
+        z-index: 50; /* Stellen Sie sicher, dass das Overlay über dem Three.js-Container liegt */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    html {
+      
+        height: 100%;
+        margin: 0;
+        overflow-y:hidden;
+        overflow-x:hidden;
+    }
+    .snap{
+        overflow-y:hidden;
+        overflow-x:hidden;
+    }
 
-        #layer2 {
-            background-color:white;
+    #background2{
+        font-size: 150px;
+        display: fixed;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top:25vw;
+        left:25vw;
+        min-height: 200vh;
+        transform: perspective(1500px) rotateY(20deg);
+        transition: font-size 1s ease-in-out;
+        font-family: 'Roboto Slab', sans-serif;
+        color:transparent; /* Der Text wird transparent gemacht */
+        -webkit-text-stroke: 0.5px #000; 
+        animation-name: fontmove;
+        animation-duration:4s;
+        
+    }
+    @keyframes fontmove {
+        0%   {  top:25vw;}
+        100%  { top:50vw;}
+    }
+    
+        
+    section {
+        scroll-snap-align: start;
+        scroll-padding-top: 1px;
+    }
+    body  
+    {
+    background-color: #919191;
+        overflow-y: hidden; 
+        overflow-x: hidden;
+        height: 100%;
+        margin: 0;
+        overflow-x:hidden;
+        
+
+    }
+    .fullscreen {
+        height: 100vh; /* 100% der Bildschirmhöhe */
+    }
+    .parallax {
+        position: fixed;
+        transform: translate(-50%, -50%);
+    }
+        
+    #speechBubble{
+        color: white;
+        background-color: #000;
+    }
+
+    .parent {
+        overflow: scroll;
+        height: 100vh;
+        scroll-snap-points-y: repeat(100vh);
+        scroll-snap-type: y mandatory;
+    }
+    section {
+        height: 100vh;
+        scroll-snap-align: start;
+        left:0;
+        position: relative;
+    }
+    .img-container{
+        flex:1;
+        margin-left:0cm;
+        background-size: contain;
+    }
+    .border-circle{
+        
+        border-style: solid;
+        background-color: #ffe4b5;
+        border-color: transparent;
+        z-index: 10;
+        background-image: 
+        linear-gradient(to bottom, rgba(255, 255, 255, 0),moccasin),
+    
+        
+    
+    }
+
+
+    #txt-left{
+        margin-left: 10%;
+    }
+    #txt-right{
+        margin-right: 5%;
+        margin-left: 5%;  
+    }
+
+    /* .left-border{
+        border-bottom-left-radius:2cm;
+        border-top-left-radius: 2cm;
+    } */
+
+
+    #containerbox{
+        object-fit: cover;
+        display: flex;
+        /* flex-grow: 1;
+        flex-shrink: 1; */
+        align-items: center;
+        margin-bottom: 15%;
+        position: relative;
+        transform: none;
+        justify-content:space-evenly;
+        height: 100%;
+        min-height: 100vh;
+        
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+
+        width: 100vw;
+        max-block-size: 40%;
+    
+        transition: 1s ease-in-out;
+        /* transform:(-0%); */
+        z-index: 1;
+        /* border-bottom-left-radius: 2cm;
+        border-top-left-radius: 2cm; */
+        border-style:solid;
+        border-color:white; 
+    }
+    /*color harmony: #fff562, #62fff5, #f562ff */
+    /* mistyrose 	#ffe4e1
+        lightcyan 	#e0ffff
+        moccasin 	#ffe4b5
+        
+        Rose Gold: #bd8c7d
+
+        Soft Gold: #d1bfa7
+
+        Silver: #8e8e90
+
+        Onyx: #49494b
+    */
+    .BG-color1{
+        background-color: #bd8c7d;
+        
+    }
+    .BG-color2{
+        background-color: #8e8e90;
+    }
+    .BG-color3{
+        background-color: #49494b;
+    }
+
+    #containerbox:hover{
+        border-color: black;
+    
+    }
+
+
+    .headliner{
+        font-family: 'Roboto Slab', sans-serif;
+        font-size: 2.8vh;
+        /* Der Text wird transparent gemacht */
+        letter-spacing: -0.01rem;
+       
+    }
+
+  
+        
+    canvas {
+    
+        display: block;
+        position: absolute;
+        body { margin: 0; };
+
+    }
+    .layer {
+        overflow-x:hidden;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        min-height: 100%;
+    }
+
+    #layer1{
+
+        transform: translatey(-10%); 
+    
+    }
+
+    .transformer-inverse {
+        
+        background-color: #ffe4b5;
+        transform: perspective(700px) rotateY(-30deg);
+        transition: transform 0.3s ease;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    .text-container-1{
+        display:flex;
+        flex:1;
+        align-items: center;
+        align-self: center;
+        transition:  1s ease-in-out;
+        
+        -webkit-text-stroke: 1px #000; /* Hier wird der Umriss erstellt */
+    }
+ 
+
+    .invisble{
+        visibility: hidden;
+    }
+    p{
+        margin:50cm,
+    }
+
+    .hidden{
+        visibility: hidden;
+    }
+    .blur {
+        filter: blur(2px);
+    }
+    .img-container{
+        display: flex;
+        justify-content: start;
+       
+    
+    
+
+    }
+    .parallaxmagic{
+        --f: .1; /* the parallax factor (the smaller the better) */
+        --r: 10px; /* radius */
+        --_f: calc(100%*var(--f)/(1 + var(--f)));
+        --_a: calc(90deg*var(--f));
+        width: 250px; /* the image size */
+        aspect-ratio: calc(1 + var(--f));
+        object-fit: cover;
+        clip-path: inset(0 var(--_f) 0 0 round var(--r));
+        transform: perspective(400px) var(--_t,rotatex(var(--_a)));
+        transition: .5s;
+        cursor: pointer;
+    z-index: 5000;
+        animation-name: example;
+        animation-duration: 4s;
+    }
+    @keyframes example {
+        0%   { --_f: calc(100%*var(--f)/(1 + var(--f)));}
+        100%  { --_f: calc(1000%*var(--f)/(1 + var(--f)));}
+    }
+    .parallaxmagic:hover{
+        clip-path: inset(0 0 0 var(--_f) round var(--r));
+        --_t: translateX(calc(-1*var(--_f))) rotateY(calc(-1*var(--_a)))
+        
+    }
+
+    .img1 {
+        background-image: url('../assets/bilder/icon\ \(2\).jpg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 50%;
+        height: 50%;
+        transition: 1s ease-in-out;
+        z-index: 1;
+
+        --f: .05; /* the parallax factor (the smaller the better) */
+        --r: 10px; /* radius */
+        --_f: calc(1000%*var(--f)/(1 + var(--f)));
+        --_a: calc(-0deg*var(--f));
+        width: 250px; /* the image size */
+        aspect-ratio: calc(1 + var(--f));
+        object-fit: cover;
+        clip-path: inset(0 var(--_f) 0 0 round var(--r));
+        transform: perspective(400px) var(--_t,rotatex(var(--_a)));
+        transition: .5s;
+        cursor: pointer;
+        
+    }
+    .img1:hover{
+        clip-path: inset(0 0 0 var(--_f) round var(--r));
+    --_t: translateX(calc(-1*var(--_f))) rotateY(calc(-1*var(--_a)))
+    transform:translatey(-15%);
+        filter:contrast(1.3);
+    }
+    .img2{
+    
+        background-image: url('../assets/bilder/assetPlacerTool.jpg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 50%;
+        height:50%;
+        transition: 1s ease-in-out;
+        z-index: 1; 
+    }
+    .img2:hover{
+        transform:translatey(-15%);
+        filter:brightness(1.2);
+    }
+    .img3{
+    
+        background-image: url('../assets/bilder/assetPlacerTool.jpg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 50%;
+        height:50%;
+        transition: 1s ease-in-out;
+        z-index: 1; 
+    }
+    .img3:hover{
+        transform:translatey(-15%);
+        filter:brightness(1.2);
+    
+    }
+
+
+    .img4{
+    
+        background-image: url('../assets/bilder/4.jpg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 50%;
+        height:50%;
+        transition: 1s ease-in-out;
+        z-index: 1; 
+    }
+    .img4:hover{
+        transform:translatey(-15%);
+        filter:contrast(1.2);
+    }
+    .img5{
+    
+        background-image: url('../assets/bilder/icon\ \(3\).jpg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 50%;
+        height:50%;
+        transition: 1s ease-in-out;
+        z-index: 1; 
+    }
+    .img5:hover{
+        transform:translatey(-15%);
+        filter:contrast(1.2);
+    }
+
+    .img7{
+    
+        background-image: url('../assets/bilder/icon\ \(4\).jpg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 50%;
+        height:50%;
+        transition: 1s ease-in-out;
+        z-index: 1; 
+    }
+    .img7:hover{
+        
+        transform:translatey(-15%);
+        filter:brightness(1.2);
+    }
+
+
+
+
+    .footer {
+        text-align: center; 
+        background-color: #333;
+        color: white; 
+    
+        min-height: 5cm;
+    }
+        
+    .disappearing-div {
+        width: 200px;
+        height: 200px;
+        background-color: lightblue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: opacity 1s ease-in-out;
+    }
+
+    .disappearing-div.disappeared {
+        opacity: 0;
+        pointer-events: none; /* Deaktiviert Klicks, wenn das Div verschwunden ist */
+    }
+
+    
+
+    /*@media*/
+    /*smaller dives*/
+
+    @media (max-width: 600px) {
+    
+        .layer1{
+            transition: all 5s cubic-bezier(0.075, 0.81, 0.165, 1);
+        }
+        .navbar .a,
+        .navbar .b,
+        .navbar .c,
+        .navbar .d{
+            font-size: xx-small;
+        }
+        .v { grid-area: v;
+            writing-mode: vertical-rl;
+            
+            font-size: large;
             background-position: center;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            position: absolute;
-            z-index: -2;
-            height: 50vh; 
-            width: 50vw; 
-            transform:translate(50%,50%);
-            transition: height 0.5s, width 0.5s;
+            align-items: center;
+            background-color:  #62fff5;
         }
-
-        /*@media*/
-        /*smaller dives*/
-
-        @media (max-width: 600px) {
-            #layer1 {
-                background-color: red; 
+        .navbar .a:hover,
+        .navbar .b:hover,
+        .navbar .c:hover,
+        .navbar .d:hover {
+            background-color: black;
+            color: red;
+            font-size: x-small;
+            box-shadow: 0 0 5px red;
+            text-shadow: 0 0 5px red;
+            transition: all 1s cubic-bezier(0.075, 0.81, 0.165, 1);
             }
-
-            #layer2 {
-                height: 50vh;
-                width: 50vw;
-            }
+    
         }
-
-        @media (min-width: 601px) {
-            #layer1 {
-                background-color: #ffcc00;
-            }
-
-            #layer2 {
-                height: 50vh;
-                width: 50vw;
+    
+        @media screen and (max-height: 51%) {
+            .trapezoid {
+                transform: none;
             }
         }

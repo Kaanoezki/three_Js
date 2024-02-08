@@ -1,0 +1,140 @@
+
+
+body {
+    position: relative;
+
+
+    /* display: flex;
+    flex-direction: column; */
+    height: 1000px;
+    margin: 0;
+}
+#maincontainer {
+    border-style: solid;
+    background-color:#62fff5;
+    background-position: center;
+    
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: 70vh; 
+    width: 47.7vw; 
+
+    margin-left: 25vw;
+    margin-top: 12vh;
+
+    padding-top:1vh;
+    padding-bottom:1vh;
+    padding-left: 2vw;
+  
+}
+#container2{
+    position: fixed;
+    margin-left: 50vw;
+    height: 0vh;
+}
+
+
+
+
+#logo {
+    border-style: solid;
+    background-color:red;
+    background-position: center;
+    
+    align-items: center;
+    justify-content: center;
+   
+    
+    height: 12.5vh; 
+    width: 44vw; 
+    /* margin-left: 2.0vw; */
+    margin-top:1vh;
+    margin-right: 2.0vw;
+
+    border-bottom: 1cm;
+
+    padding-top:1vh;
+    padding-left: 1vw;
+}
+
+#topnavi {
+    border-style: solid;
+
+    background-color:yellowgreen;
+    background-position: center;
+    
+    align-items: center;
+    justify-content: center;
+   
+    height: 3vh; 
+    width: 44vw;
+    /* margin-left: 2.0vw; */
+    
+    margin-right: 2.0vw;
+
+    border-bottom: 1cm;
+
+    padding-top:1vh;
+    padding-bottom:1vh;
+    padding-left: 1vw;
+}
+.textblock{
+    border-style: solid;
+
+    background-color:pink;
+    background-position: center;
+    
+    align-items: center;
+    justify-content: center;
+   
+    height: 8vh; 
+    width: 39vw; 
+
+    margin-left: 2.0vh;
+    margin-right: 2.0vw;
+
+    margin-bottom: 0.25vh;
+
+    padding-left: 1vw;
+    padding-top: 1vh;
+}
+#contentarea {
+    border-style: solid;
+    background-color:green;
+    background-position: center;
+    
+    align-items: center;
+    justify-content: center;
+
+    height: 40vh; 
+    width: 44vw; 
+
+    margin-right: 2.0vw;
+
+    border-bottom: 1cm;
+
+    padding-top:1vh;
+    padding-bottom:1vh;
+    padding-left: 1vw;
+    
+}
+.footer{
+    border-style: solid;
+    background-color:white;
+    background-position: center;
+    
+    align-items: center;
+    justify-content: center;
+   
+    width: 43.5vw; 
+    height: 4vh;
+
+    margin-top: 4.5vh;
+    margin-bottom: 0.25vh;
+    margin-left: -1.3vw;
+    
+    padding-left: 1.5vw;
+    padding-top:1vh;
+
+}
